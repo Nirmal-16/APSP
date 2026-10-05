@@ -1,8 +1,8 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { Float, Sparkles } from "@react-three/drei";
-import { useEffect, useState } from "react";
+import { Float, OrbitControls, Sparkles } from "@react-three/drei";
+import { useMounted } from "@/hooks/use-mounted";
 
 function PlasmaCore() {
   return (
@@ -31,8 +31,7 @@ function PlasmaCore() {
 export function PlasmaOrbCanvas() {
   // Guard against SSR: WebGL only exists in the browser, so we render a
   // placeholder on the server and swap in the real canvas after mount.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useMounted();
 
   if (!mounted) {
     return <div className="aspect-square w-full" />;
@@ -45,6 +44,16 @@ export function PlasmaOrbCanvas() {
       <pointLight position={[-5, -3, -5]} intensity={0.9} color="#818cf8" />
       <PlasmaCore />
       <Sparkles count={100} scale={4} size={2.5} speed={0.4} color="#22d3ee" />
+      {/* Drag to spin the orb around its own center; no zoom/pan so it
+          can't be dragged out of view. Auto-rotates gently when idle. */}
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        autoRotate
+        autoRotateSpeed={0.6}
+        rotateSpeed={0.6}
+        makeDefault
+      />
     </Canvas>
   );
 }

@@ -24,7 +24,7 @@ export function StatCounter({ value }: { value: string }) {
   }, [inView, target]);
 
   return (
-    <p ref={ref} className="text-3xl font-semibold tracking-tight text-zinc-950">
+    <p ref={ref} className="text-3xl font-semibold tracking-tight text-foreground">
       {display}
       {suffix}
     </p>
