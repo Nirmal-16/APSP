@@ -3,7 +3,7 @@
 // Sanity "Site Settings" document once the CMS is wired up.
 
 export const siteSettings = {
-  labName: "Advanced Plasma & Space Propulsion Group",
+  labName: "Advanced Plasma & Space Propulsion Research Group",
   shortName: "APSP Group",
   tagline:
     "Research in clean energy, plasma technologies, and space propulsion — from sustainable aviation fuels to electric thrusters.",
