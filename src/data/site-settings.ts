@@ -2,6 +2,17 @@
 // directly — pages read from here. This whole file gets replaced by a
 // Sanity "Site Settings" document once the CMS is wired up.
 
+import type { Media } from "@/data/media";
+
+// Visual on the Contact page. Swap for an approved image or video once the
+// client signs off — see data/media.ts for the options.
+const contactMedia: Media = {
+  type: "model",
+  model: "electrospray",
+  caption:
+    "Electrospray thruster (illustration) — ions are drawn from a Taylor cone of ionic liquid through the extractor electrode, producing precise micro-newton thrust.",
+};
+
 export const siteSettings = {
   labName: "Advanced Plasma & Space Propulsion Research Group",
   shortName: "APSP Group",
@@ -25,6 +36,12 @@ export const siteSettings = {
   // Which hero 3D model to show on the homepage. Swap once the client
   // picks one from the Phase 0 intake (see components/three/*).
   heroModel: "plasma-orb" as "plasma-orb" | "thruster" | "satellite",
+  contact: {
+    headline: "Get in Touch",
+    intro:
+      "Whether you're a student exploring research opportunities, a researcher interested in collaboration, or an industry partner, we'd be glad to hear from you.",
+    media: contactMedia,
+  },
   stats: [
     { label: "Years Active", value: `${new Date().getFullYear() - 2019}+` },
     { label: "Publications", value: "20+" },
