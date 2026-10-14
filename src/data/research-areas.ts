@@ -14,8 +14,10 @@ export interface ResearchTopic {
   description: string;
 }
 
+export type ResearchAreaSlug = "clean-energy" | "plasma-technologies" | "space-propulsion" | "other-technologies";
+
 export interface ResearchArea {
-  slug: string;
+  slug: ResearchAreaSlug;
   title: string;
   subtitle: string;
   summary: string;

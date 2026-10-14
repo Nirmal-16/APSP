@@ -1,6 +1,7 @@
-// Publication list shown on the Publications page.
-// Sample/placeholder entries — replace with real citations. Most recent
-// first is the expected order within each type.
+// Publications shown on the Publications page and in each member's
+// profile popup on the People page. Most recent first within each type.
+// Write author names exactly as they appear in data/people.ts so they
+// link up with the right person.
 
 export interface Publication {
   title: string;
@@ -8,48 +9,46 @@ export interface Publication {
   venue: string;
   year: number;
   type: "Journal" | "Conference";
+  note?: string; // e.g. "Abstract accepted", "Poster"
   link?: string;
 }
 
 export const publications: Publication[] = [
   {
-    title: "Performance Characterization of a Low-Power Hall-Effect Thruster",
-    authors: "P. Author, A. Researcher, et al.",
-    venue: "Journal of Propulsion and Power (sample entry)",
-    year: 2025,
-    type: "Journal",
-    link: "#",
-  },
-  {
-    title: "Langmuir Probe Diagnostics of Pulsed Plasma Thruster Exhaust",
-    authors: "P. Author, S. Collaborator, et al.",
-    venue: "Plasma Sources Science and Technology (sample entry)",
-    year: 2024,
-    type: "Journal",
-    link: "#",
-  },
-  {
-    title: "Numerical Modeling of Spacecraft Surface Charging in LEO Plasma",
-    authors: "P. Author, et al.",
-    venue: "IEEE Transactions on Plasma Science (sample entry)",
-    year: 2024,
-    type: "Journal",
-    link: "#",
-  },
-  {
-    title: "Combustion Characteristics of Sustainable Aviation Fuel Blends",
-    authors: "P. Author, R. Scholar, et al.",
-    venue: "International Conference on Clean Energy Systems (sample entry)",
-    year: 2025,
+    title: "Combustion characteristics studies of Jet-A fuel in fuel-flexible hybrid pintle injector",
+    authors: "Jay Shiv Dixit, Manisha Patel HM, Pravendra Kumar",
+    venue: "6th National Aerospace Propulsion Conference, IIT Hyderabad, India",
+    year: 2027,
     type: "Conference",
-    link: "#",
+    note: "Abstract accepted",
   },
   {
-    title: "A Compact Magnetoplasmadynamic Thruster for CubeSat Platforms",
-    authors: "P. Author, M. Student, et al.",
-    venue: "AIAA Propulsion and Energy Forum (sample entry)",
-    year: 2024,
+    title: "Studies on combustion characteristics of LPG-Air mixture in a new configuration injector",
+    authors: "Manisha Patel HM, Jay Shiv Dixit, Pravendra Kumar",
+    venue: "64th Symposium (Japanese) on Combustion",
+    year: 2026,
     type: "Conference",
-    link: "#",
+    note: "Abstract accepted",
+  },
+  {
+    title: "Advancing fuel-flexible combustion technology: hybrid pintle injector for carbon neutrality",
+    authors: "Jay Shiv Dixit, Satender Singh, Pravendra Kumar, Muruganandam T M",
+    venue: "41st International Symposium on Combustion",
+    year: 2026,
+    type: "Conference",
+    note: "Work-in-Progress Poster",
+  },
+  {
+    title: "Numerical and experimental studies on biofuel combustion using a hybrid injector",
+    authors: "Jay Shiv Dixit, Satender Singh, Pravendra Kumar",
+    venue: "27th International Society of Air Breathing Engines (ISABE), IIT Bombay, India",
+    year: 2026,
+    type: "Conference",
   },
 ];
+
+// Publications listing `name` as an author ("Dr." prefixes are ignored).
+export function publicationsBy(name: string) {
+  const plain = name.replace(/^Dr\.?\s+/, "");
+  return publications.filter((p) => p.authors.split(",").some((a) => a.trim() === plain));
+}

@@ -1,57 +1,102 @@
-import { UserRound } from "lucide-react";
-import { peopleGroups } from "@/data/people";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Plus } from "lucide-react";
+import { collaboratorRoles, people, roleOrder, type Person } from "@/data/people";
+import { openings } from "@/data/hirings";
+import { siteSettings } from "@/data/site-settings";
 import { Reveal } from "@/components/motion/reveal";
+import { FeaturedPerson } from "@/components/people/person-profile";
+import { FilterablePeopleGrid, PeopleGrid } from "@/components/people/people-grid";
+
+export const metadata: Metadata = {
+  title: `People — ${siteSettings.labName}`,
+  description: "Meet the researchers and students of the group.",
+};
+
+// Stable sort: by role order, then by position in data/people.ts.
+const sorted = [...people].sort((a, b) => roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role));
+const isCollaborator = (p: Person) => collaboratorRoles.includes(p.role);
+
+const leads = sorted.filter((p) => !p.alumni && p.role === "Principal Investigator");
+const team = sorted.filter((p) => !p.alumni && p.role !== "Principal Investigator" && !isCollaborator(p));
+const collaborators = sorted.filter((p) => !p.alumni && isCollaborator(p));
+const alumni = sorted.filter((p) => p.alumni);
+
+function SectionHeading({ title, intro }: { title: string; intro: string }) {
+  return (
+    <Reveal className="mb-10 text-center">
+      <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{title}</h2>
+      <p className="mt-2 text-muted">{intro}</p>
+    </Reveal>
+  );
+}
 
 export default function PeoplePage() {
   return (
     <div className="site-container py-24">
-      <Reveal>
-        <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          People
+      <Reveal className="mx-auto max-w-2xl text-center">
+        {openings.length > 0 && (
+          <Link
+            href="/insights#hiring"
+            className="inline-block rounded-full border border-border bg-surface px-4 py-1 text-xs font-medium uppercase tracking-widest text-accent transition-colors hover:border-primary"
+          >
+            We&apos;re hiring!
+          </Link>
+        )}
+        <h1 className="mt-6 text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
+          The people behind the research
         </h1>
-        <p className="mt-4 max-w-2xl text-muted">
-          The researchers, students, and alumni behind the lab&apos;s work.
+        <p className="mt-5 text-lg leading-relaxed text-muted">
+          Researchers and students working across plasma technologies, space propulsion and clean
+          energy. Select anyone to read more about their work.
         </p>
       </Reveal>
 
-      <div className="mt-16 flex flex-col gap-16">
-        {peopleGroups.map((group, groupIndex) => (
-          <Reveal key={group.role} delay={groupIndex * 0.05}>
-            <h2 className="text-xl font-semibold tracking-tight text-accent">{group.role}</h2>
-            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {group.members.map((person) => (
-                <div
-                  key={person.name}
-                  className="rounded-2xl border border-border bg-surface p-6"
-                >
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent">
-                    <UserRound className="h-8 w-8 text-white" strokeWidth={1.75} />
-                  </div>
-                  <h3 className="mt-4 font-semibold text-foreground">{person.name}</h3>
-                  <p className="mt-1 text-sm text-accent">{person.title}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{person.bio}</p>
-                  <div className="mt-4 flex flex-wrap gap-3 text-xs font-medium text-muted">
-                    {person.email && (
-                      <a href={`mailto:${person.email}`} className="hover:text-foreground">
-                        Email
-                      </a>
-                    )}
-                    {person.linkedin && (
-                      <a href={person.linkedin} className="hover:text-foreground">
-                        LinkedIn
-                      </a>
-                    )}
-                    {person.scholar && (
-                      <a href={person.scholar} className="hover:text-foreground">
-                        Google Scholar
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        ))}
+      <div className="mx-auto mt-16 flex max-w-6xl flex-col gap-24">
+        {leads.length > 0 && (
+          <div className="flex flex-col gap-6">
+            {leads.map((person) => (
+              <Reveal key={person.name}>
+                <FeaturedPerson person={person} />
+              </Reveal>
+            ))}
+          </div>
+        )}
+
+        <section>
+          <SectionHeading title="Research team" intro="Scholars and students currently in the group." />
+          <FilterablePeopleGrid members={team}>
+            <Reveal delay={(team.length % 4) * 0.06}>
+              <Link
+                href="/insights#hiring"
+                className="group flex aspect-[4/5] w-full flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-border p-4 text-center transition-colors hover:border-primary"
+              >
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white transition-transform group-hover:scale-110">
+                  <Plus className="h-6 w-6" />
+                </span>
+                <span className="font-semibold text-foreground">Join the group</span>
+                <span className="text-sm text-muted">See open positions</span>
+              </Link>
+            </Reveal>
+          </FilterablePeopleGrid>
+        </section>
+
+        {collaborators.length > 0 && (
+          <section>
+            <SectionHeading
+              title="Collaborators & visiting researchers"
+              intro="Researchers from other institutions working with the group."
+            />
+            <PeopleGrid members={collaborators} />
+          </section>
+        )}
+
+        {alumni.length > 0 && (
+          <section>
+            <SectionHeading title="Alumni" intro="Former members and where they are now." />
+            <PeopleGrid members={alumni} />
+          </section>
+        )}
       </div>
     </div>
   );

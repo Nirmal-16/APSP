@@ -2,6 +2,9 @@ import { publications } from "@/data/publications";
 import { Reveal } from "@/components/motion/reveal";
 
 function PublicationList({ items }: { items: typeof publications }) {
+  if (items.length === 0) {
+    return <p className="mt-8 text-muted">None listed yet.</p>;
+  }
   return (
     <ul className="mt-8 flex flex-col gap-6">
       {items.map((pub) => (
@@ -17,6 +20,7 @@ function PublicationList({ items }: { items: typeof publications }) {
           </p>
           <p className="mt-2 text-sm text-muted">
             {pub.authors} — {pub.venue}, {pub.year}
+            {pub.note && <span className="ml-2 text-accent">({pub.note})</span>}
           </p>
         </li>
       ))}
