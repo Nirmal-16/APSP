@@ -15,10 +15,6 @@ const links = [
 ];
 
 export function Footer() {
-  // Placeholder query until the real lab address lands (Phase 0 intake) —
-  // the embed updates automatically once siteSettings.address is real.
-  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(siteSettings.address)}&output=embed`;
-
   return (
     <footer className="border-t border-border bg-surface">
       <div className="site-container grid grid-cols-1 gap-12 py-16 lg:grid-cols-[1.1fr_0.7fr_1fr_1.2fr] lg:gap-8">
@@ -83,7 +79,7 @@ export function Footer() {
           <p className="text-sm font-medium text-foreground">Find Us</p>
           <div className="mt-4 overflow-hidden rounded-xl border border-border">
             <iframe
-              src={mapSrc}
+              src={siteSettings.mapEmbedUrl}
               title="Lab location map"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

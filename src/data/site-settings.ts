@@ -4,17 +4,20 @@
 
 import type { Media } from "@/data/media";
 
-// Visual on the Contact page. Swap for an approved image or video once the
-// client signs off — see data/media.ts for the options.
+// Visual on the Contact page — see data/media.ts for the options. To go
+// back to the built-in 3D model: { type: "model", model: "electrospray" }.
 const contactMedia: Media = {
-  type: "model",
-  model: "electrospray",
+  type: "video",
+  src: "/media/electrospray-satellite.mp4",
+  poster: "/media/electrospray-satellite.jpg",
   caption:
-    "Electrospray thruster (illustration) — ions are drawn from a Taylor cone of ionic liquid through the extractor electrode, producing precise micro-newton thrust.",
+    "A CubeSat carrying the group's multi-array electrospray thruster — visualisation by Punya Malaiya Jain.",
 };
 
+const address = "Department of Aerospace Engineering, IIT Madras, Chennai 600036, Tamil Nadu, India";
+
 export const siteSettings = {
-  labName: "Advanced Plasma & Space Propulsion Research Group",
+  labName: "Advanced Plasma & Space Propulsion Group",
   shortName: "APSP Group",
   tagline:
     "Research in clean energy, plasma technologies, and space propulsion — from sustainable aviation fuels to electric thrusters.",
@@ -24,10 +27,13 @@ export const siteSettings = {
   aboutParagraph:
     "The Advanced Plasma & Space Propulsion Group carries out research across four areas: clean energy (biofuels and sustainable aviation fuels), plasma technologies, space propulsion, and other emerging technologies. This site shares our research activities with students, PhD scholars, postdocs, and industry — and we welcome anyone interested in exploring our work or joining the laboratory to get in touch.",
   foundedYear: 2019,
-  email: "contact@apsplab.example.edu",
+  email: "contact@apsplab.example.edu", // placeholder — replace with the lab's real email
   phone: "+91 00000 00000", // placeholder — replace with the lab's professional contact number
-  address: "Department of Aerospace Engineering, [University Name], [City, Country]",
+  address,
+  mapEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`,
+  directionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`,
   socials: {
+    // placeholders — "#" links render as disabled icons until real URLs are set
     googleScholar: "#",
     linkedin: "#",
     researchGate: "#",
@@ -40,7 +46,60 @@ export const siteSettings = {
     headline: "Get in Touch",
     intro:
       "Whether you're a student exploring research opportunities, a researcher interested in collaboration, or an industry partner, we'd be glad to hear from you.",
+    replyTime: "We usually reply within 2–3 working days.", // draft — confirm with client
     media: contactMedia,
+    // Person named on the Contact page. `profile` links to their People card.
+    lead: {
+      name: "Dr. Pravendra Kumar",
+      role: "Principal Investigator",
+      email: "", // their direct email; leave empty to use the lab email
+      profile: "/people#pravendra-kumar",
+    },
+    // "How can we help?" cards. Each opens an email with this subject line
+    // so incoming mail is easy to sort.
+    purposes: [
+      {
+        icon: "students",
+        title: "Prospective students",
+        text: "PhD, MS, Dual Degree and internship enquiries. Include your CV and the research area you're interested in.",
+        subject: "Prospective student enquiry",
+        link: { href: "/insights#hiring", label: "See open positions" },
+      },
+      {
+        icon: "research",
+        title: "Research collaboration",
+        text: "Academic partnerships, joint projects, visiting positions and shared experiments.",
+        subject: "Research collaboration",
+      },
+      {
+        icon: "industry",
+        title: "Industry & funding",
+        text: "Sponsored research, testing support and technology partnerships with industry.",
+        subject: "Industry partnership",
+      },
+    ] as const,
+    // Draft answers — confirm with client before launch.
+    faqs: [
+      {
+        question: "Do you take summer interns?",
+        answer:
+          "Internship openings are posted under Insights → Hiring. If nothing is listed, you're still welcome to email us with your CV and the research area you're interested in.",
+      },
+      {
+        question: "How do I apply for a PhD or MS in the group?",
+        answer:
+          "Admission to research programmes at IIT Madras goes through the institute's official admissions process. Before applying, email us with your CV and research interests so we can tell you whether the group has a suitable opening.",
+      },
+      {
+        question: "Can I visit the lab?",
+        answer: "Yes — please email us in advance so we can arrange a suitable time for your visit.",
+      },
+      {
+        question: "We're a company — how can we work with the group?",
+        answer:
+          "Email us with a short description of your problem or idea. We'll get back to you to discuss whether a sponsored project or collaboration is a good fit.",
+      },
+    ],
   },
   stats: [
     { label: "Years Active", value: `${new Date().getFullYear() - 2019}+` },
