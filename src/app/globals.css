@@ -61,6 +61,23 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Type scale — one step larger than Tailwind's default (client request,
+   04/10 meeting). Only font sizes change; spacing and layout don't, so
+   this is safe to tune here without touching any page.
+   Tailwind default in comments. */
+@theme {
+  --text-xs: 0.8125rem; /* 0.75rem  → 13px */
+  --text-sm: 0.9375rem; /* 0.875rem → 15px */
+  --text-base: 1.0625rem; /* 1rem → 17px */
+  --text-lg: 1.25rem; /* 1.125rem → 20px */
+  --text-xl: 1.375rem; /* 1.25rem → 22px */
+  --text-2xl: 1.625rem; /* 1.5rem → 26px */
+  --text-3xl: 2rem; /* 1.875rem → 32px */
+  --text-4xl: 2.5rem; /* 2.25rem → 40px */
+  --text-5xl: 3.25rem; /* 3rem → 52px */
+  --text-6xl: 4rem; /* 3.75rem → 64px */
+}
+
 /* One page-width rule for the whole site. Wide max-width + slim gutters so
    content fills large screens instead of sitting in a narrow centre column. */
 @utility site-container {
@@ -79,5 +96,6 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-size: var(--text-base); /* text with no size class follows the scale too */
   line-height: 1.6;
 }
