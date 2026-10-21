@@ -24,13 +24,17 @@ npm run lint
 | To change…                             | Edit                       |
 | -------------------------------------- | -------------------------- |
 | Lab name, contact details, socials, hero 3D model, stats, collaborators | `src/data/site-settings.ts` |
-| Team members                           | `src/data/people.ts`        |
+| Contact page text, video/image, FAQ, help cards | `contact` in `src/data/site-settings.ts` |
+| Team members (photos in `public/people/`, 4:5 portrait) | `src/data/people.ts`        |
 | Research areas and topics              | `src/data/research-areas.ts` |
-| Publications                           | `src/data/publications.ts`  |
+| Publications (also shown on each author's profile) | `src/data/publications.ts`  |
 | News and announcements                 | `src/data/news.ts`          |
 | Open positions                         | `src/data/hirings.ts`       |
+| Text sizes across the whole site       | type scale in `src/app/globals.css` |
 
-Images go in `public/` and are referenced from the root, e.g. `/news/grant.jpg`.
+Images and videos go in `public/` and are referenced from the root, e.g.
+`/people/gyandeep.jpg` or `/media/electrospray-satellite.mp4`. A media slot
+can show a 3D model, an image or a video — see `src/data/media.ts`.
 
 ## Deployment
 

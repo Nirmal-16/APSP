@@ -46,7 +46,7 @@ export default function PeoplePage() {
         <h1 className="mt-6 text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
           The people behind the research
         </h1>
-        <p className="mt-5 text-lg leading-relaxed text-muted">
+        <p className="mt-5 text-lg leading-relaxed text-pretty text-muted">
           Researchers and students working across plasma technologies, space propulsion and clean
           energy. Select anyone to read more about their work.
         </p>

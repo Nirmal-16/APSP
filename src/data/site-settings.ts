@@ -15,6 +15,7 @@ const contactMedia: Media = {
 };
 
 const address = "Department of Aerospace Engineering, IIT Madras, Chennai 600036, Tamil Nadu, India";
+const foundedYear = 2019;
 
 export const siteSettings = {
   labName: "Advanced Plasma & Space Propulsion Group",
@@ -26,7 +27,7 @@ export const siteSettings = {
     "We study plasma-assisted combustion, electrospray and field-emission electric propulsion, and sustainable aviation fuels — research that spans how we power aircraft and how spacecraft move through space.",
   aboutParagraph:
     "The Advanced Plasma & Space Propulsion Group carries out research across four areas: clean energy (biofuels and sustainable aviation fuels), plasma technologies, space propulsion, and other emerging technologies. This site shares our research activities with students, PhD scholars, postdocs, and industry — and we welcome anyone interested in exploring our work or joining the laboratory to get in touch.",
-  foundedYear: 2019,
+  foundedYear,
   email: "contact@apsplab.example.edu", // placeholder — replace with the lab's real email
   phone: "+91 00000 00000", // placeholder — replace with the lab's professional contact number
   address,
@@ -102,7 +103,7 @@ export const siteSettings = {
     ],
   },
   stats: [
-    { label: "Years Active", value: `${new Date().getFullYear() - 2019}+` },
+    { label: "Years Active", value: `${new Date().getFullYear() - foundedYear}+` },
     { label: "Publications", value: "20+" },
     { label: "Research Areas", value: "4" },
     { label: "Team Members", value: "10+" },
