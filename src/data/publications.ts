@@ -1,5 +1,5 @@
 // Publications shown on the Publications page and in each member's
-// profile popup on the People page. Most recent first within each type.
+// profile popup on the Research Team page. Most recent first within each type.
 // Write author names exactly as they appear in data/people.ts so they
 // link up with the right person.
 

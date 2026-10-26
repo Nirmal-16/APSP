@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { collaboratorRoles, people, roleOrder, type Person } from "@/data/people";
-import { openings } from "@/data/hirings";
 import { siteSettings } from "@/data/site-settings";
 import { Reveal } from "@/components/motion/reveal";
-import { FeaturedPerson } from "@/components/people/person-profile";
 import { FilterablePeopleGrid, PeopleGrid } from "@/components/people/people-grid";
 
 export const metadata: Metadata = {
-  title: `People — ${siteSettings.labName}`,
+  title: `Research Team — ${siteSettings.labName}`,
   description: "Meet the researchers and students of the group.",
 };
 
@@ -17,7 +15,7 @@ export const metadata: Metadata = {
 const sorted = [...people].sort((a, b) => roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role));
 const isCollaborator = (p: Person) => collaboratorRoles.includes(p.role);
 
-const leads = sorted.filter((p) => !p.alumni && p.role === "Principal Investigator");
+// The Principal Investigator is featured on the About page, not here.
 const team = sorted.filter((p) => !p.alumni && p.role !== "Principal Investigator" && !isCollaborator(p));
 const collaborators = sorted.filter((p) => !p.alumni && isCollaborator(p));
 const alumni = sorted.filter((p) => p.alumni);
@@ -31,18 +29,13 @@ function SectionHeading({ title, intro }: { title: string; intro: string }) {
   );
 }
 
-export default function PeoplePage() {
+export default function ResearchTeamPage() {
   return (
     <div className="site-container py-24">
       <Reveal className="mx-auto max-w-2xl text-center">
-        {openings.length > 0 && (
-          <Link
-            href="/insights#hiring"
-            className="inline-block rounded-full border border-border bg-surface px-4 py-1 text-xs font-medium uppercase tracking-widest text-accent transition-colors hover:border-primary"
-          >
-            We&apos;re hiring!
-          </Link>
-        )}
+        <p className="mx-auto w-fit rounded-full border border-border bg-surface px-4 py-1 text-xs font-medium uppercase tracking-widest text-muted">
+          Research Team
+        </p>
         <h1 className="mt-6 text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
           The people behind the research
         </h1>
@@ -53,18 +46,8 @@ export default function PeoplePage() {
       </Reveal>
 
       <div className="mx-auto mt-16 flex max-w-6xl flex-col gap-24">
-        {leads.length > 0 && (
-          <div className="flex flex-col gap-6">
-            {leads.map((person) => (
-              <Reveal key={person.name}>
-                <FeaturedPerson person={person} />
-              </Reveal>
-            ))}
-          </div>
-        )}
-
         <section>
-          <SectionHeading title="Research team" intro="Scholars and students currently in the group." />
+          <SectionHeading title="Current members" intro="Scholars and students currently in the group." />
           <FilterablePeopleGrid members={team}>
             <Reveal delay={(team.length % 4) * 0.06}>
               <Link

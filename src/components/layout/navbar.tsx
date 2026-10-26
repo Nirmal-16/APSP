@@ -12,7 +12,7 @@ import { ThemeToggle } from "@/components/theme/theme-toggle";
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/people", label: "People" },
+  { href: "/research-team", label: "Research Team" },
   { href: "/research", label: "Research" },
   { href: "/publications", label: "Publications" },
   { href: "/gallery", label: "Gallery" },
@@ -49,7 +49,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   aria-current={active ? "page" : undefined}
-                  className={`rounded-full px-3 py-1.5 transition-colors hover:text-foreground ${
+                  className={`whitespace-nowrap rounded-full px-3 py-1.5 transition-colors hover:text-foreground ${
                     active ? "text-foreground" : ""
                   }`}
                 >
