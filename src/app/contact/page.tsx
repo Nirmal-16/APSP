@@ -30,6 +30,9 @@ const { lead } = contact;
 
 const mailto = (subject: string, to = email) => `mailto:${to}?subject=${encodeURIComponent(subject)}`;
 
+// Every contact action opens in a new tab so visitors keep this page open.
+const newTab = { target: "_blank", rel: "noopener noreferrer" } as const;
+
 const purposeIcons: Record<(typeof contact.purposes)[number]["icon"], LucideIcon> = {
   students: GraduationCap,
   research: FlaskConical,
@@ -108,7 +111,7 @@ export default function ContactPage() {
             <Reveal delay={0.1} className="flex flex-col gap-4">
               <DetailCard icon={Mail} label="Email">
                 <div className="flex items-center justify-between gap-3">
-                  <a href={`mailto:${email}`} className={`min-w-0 ${linkClass}`}>
+                  <a href={`mailto:${email}`} {...newTab} className={`min-w-0 ${linkClass}`}>
                     {email}
                   </a>
                   <CopyButton value={email} label="email" />
@@ -116,7 +119,7 @@ export default function ContactPage() {
               </DetailCard>
               <DetailCard icon={Phone} label="Phone">
                 <div className="flex items-center justify-between gap-3">
-                  <a href={`tel:${phone.replace(/\s+/g, "")}`} className={linkClass}>
+                  <a href={`tel:${phone.replace(/\s+/g, "")}`} {...newTab} className={linkClass}>
                     {phone}
                   </a>
                   <CopyButton value={phone} label="phone number" />
@@ -124,7 +127,7 @@ export default function ContactPage() {
               </DetailCard>
               <DetailCard icon={MapPin} label="Address">
                 <p className="leading-snug">{address}</p>
-                <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={`mt-2 ${accentLinkClass}`}>
+                <a href={directionsUrl} {...newTab} className={`mt-2 ${accentLinkClass}`}>
                   Get directions <ArrowUpRight className="h-4 w-4" />
                 </a>
               </DetailCard>
@@ -136,9 +139,10 @@ export default function ContactPage() {
             </Reveal>
 
             <Reveal delay={0.2} className="lg:order-first">
+              {/* Taller on phones to fit the model's info panel and caption. */}
               <MediaSlot
                 media={contact.media}
-                className="aspect-square sm:aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[28rem]"
+                className="aspect-[4/5] sm:aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[28rem]"
               />
             </Reveal>
           </div>
@@ -166,6 +170,7 @@ export default function ContactPage() {
                     <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
                       <a
                         href={mailto(purpose.subject)}
+                        {...newTab}
                         className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-hover"
                       >
                         <Mail className="h-4 w-4" />
@@ -198,11 +203,11 @@ export default function ContactPage() {
               </div>
               {/* Own row on phones so the buttons never squeeze the name. */}
               <div className="flex w-full flex-wrap gap-2 sm:w-auto">
-                <a href={mailto(`For ${lead.name}`, lead.email || email)} className={pillClass}>
+                <a href={mailto(`For ${lead.name}`, lead.email || email)} {...newTab} className={pillClass}>
                   <Mail className="h-4 w-4" />
                   Email
                 </a>
-                <Link href={lead.profile} className={pillClass}>
+                <Link href={lead.profile} {...newTab} className={pillClass}>
                   Profile <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
