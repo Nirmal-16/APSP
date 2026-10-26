@@ -4,14 +4,14 @@
 
 import type { Media } from "@/data/media";
 
-// Visual on the Contact page — see data/media.ts for the options. To go
-// back to the built-in 3D model: { type: "model", model: "electrospray" }.
+// Visual on the Contact page — see data/media.ts for the options. The
+// interactive electrospray model explains its own parts. The CubeSat video
+// (/media/electrospray-satellite.mp4, by Punya Malaiya Jain) is reserved for
+// the homepage.
 const contactMedia: Media = {
-  type: "video",
-  src: "/media/electrospray-satellite.mp4",
-  poster: "/media/electrospray-satellite.jpg",
-  caption:
-    "A CubeSat carrying the group's multi-array electrospray thruster — visualisation by Punya Malaiya Jain.",
+  type: "model",
+  model: "electrospray",
+  caption: "Electrospray propulsion — one of the micro-thruster technologies the group develops for small satellites.",
 };
 
 const address = "Department of Aerospace Engineering, IIT Madras, Chennai 600036, Tamil Nadu, India";
