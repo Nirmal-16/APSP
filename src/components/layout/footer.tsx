@@ -6,7 +6,7 @@ import { SocialLinks } from "@/components/icons/social-icons";
 // Mirrors the navbar's finalized page set (see components/layout/navbar.tsx).
 const links = [
   { href: "/about", label: "About" },
-  { href: "/people", label: "People" },
+  { href: "/research-team", label: "Research Team" },
   { href: "/research", label: "Research" },
   { href: "/publications", label: "Publications" },
   { href: "/gallery", label: "Gallery" },

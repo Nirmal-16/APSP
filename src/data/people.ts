@@ -1,13 +1,13 @@
 import type { ResearchAreaSlug } from "@/data/research-areas";
 
-// Lab members shown on the People page.
+// Lab members shown on the Research Team page.
 //
 // To add someone: append an entry below. Put their photo in /public/people
 // as a 4:5 portrait (e.g. 640×800 JPEG) named after them, and set `photo`.
 // Without a photo the card shows their initials. The page orders people by
 // `roleOrder`, then by their position in this list.
 //
-// Sections: the Principal Investigator is featured at the top; "Visiting
+// Sections: the Principal Investigator is featured on the About page; "Visiting
 // Researcher" and "Collaborator" roles get their own section; `alumni: true`
 // moves someone to Alumni. Empty sections are hidden.
 
@@ -43,7 +43,7 @@ export interface Person {
   alumni?: boolean;
 }
 
-// URL-safe id used for shareable links, e.g. /people#punya-malaiya-jain
+// URL-safe id used for shareable links, e.g. /research-team#punya-malaiya-jain
 export function personSlug(person: Person) {
   return person.name
     .replace(/^Dr\.?\s+/, "")

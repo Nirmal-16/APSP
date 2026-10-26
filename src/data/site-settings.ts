@@ -49,12 +49,13 @@ export const siteSettings = {
       "Whether you're a student exploring research opportunities, a researcher interested in collaboration, or an industry partner, we'd be glad to hear from you.",
     replyTime: "We usually reply within 2–3 working days.", // draft — confirm with client
     media: contactMedia,
-    // Person named on the Contact page. `profile` links to their People card.
+    // Person named on the Contact page. `profile` links to the PI section on
+    // the About page (the Research Team page no longer lists the PI).
     lead: {
       name: "Dr. Pravendra Kumar",
       role: "Principal Investigator",
       email: "", // their direct email; leave empty to use the lab email
-      profile: "/people#pravendra-kumar",
+      profile: "/about",
     },
     // "How can we help?" cards. Each opens an email with this subject line
     // so incoming mail is easy to sort.

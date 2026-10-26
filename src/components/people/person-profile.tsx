@@ -102,7 +102,7 @@ function PersonLinks({ person }: { person: Person }) {
 
 // Native <dialog>: showModal() gives focus trapping, Esc-to-close and a
 // backdrop for free. Opening sets #slug in the URL so a profile can be
-// shared; visiting /people#slug opens it directly.
+// shared; visiting /research-team#slug opens it directly.
 function useProfileDialog(slug: string) {
   const ref = useRef<HTMLDialogElement>(null);
 
@@ -238,8 +238,8 @@ export function PersonCard({ person }: { person: Person }) {
         aria-haspopup="dialog"
         className="group block w-full rounded-2xl text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
       >
-        <PersonPhoto person={person} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw" />
-        <h3 className="mt-4 font-semibold text-foreground transition-colors group-hover:text-primary sm:text-lg">
+        <PersonPhoto person={person} sizes="(min-width: 1024px) 20vw, (min-width: 640px) 27vw, 50vw" />
+        <h3 className="mt-4 font-semibold text-foreground transition-colors group-hover:text-primary">
           {person.name}
         </h3>
         <p className="mt-0.5 text-sm font-medium text-accent">{roleLine(person)}</p>
@@ -254,7 +254,7 @@ export function PersonCard({ person }: { person: Person }) {
   );
 }
 
-// Wide card for the Principal Investigator, above the team grid.
+// Wide card for the Principal Investigator, kept for the About page.
 export function FeaturedPerson({ person }: { person: Person }) {
   const slug = personSlug(person);
   const { ref, open, close, onClose } = useProfileDialog(slug);
