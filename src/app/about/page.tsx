@@ -17,16 +17,12 @@ const pillars = [
 
 export default function AboutPage() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-gradient-to-br from-primary/25 via-accent/15 to-transparent blur-3xl" />
-
-      <div className="site-container relative flex flex-col gap-20 py-24">
+    <section>
+      <div className="site-container flex flex-col gap-20 py-24">
         {/* Header */}
         <Reveal className="mx-auto max-w-4xl text-center">
-          <p className="mx-auto w-fit rounded-full border border-border bg-surface px-4 py-1 text-xs font-medium uppercase tracking-widest text-muted">
-            About
-          </p>
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
+          <p className="text-sm font-medium text-accent">About</p>
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
             {about.headline}
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-pretty text-muted">{about.intro}</p>

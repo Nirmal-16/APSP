@@ -21,7 +21,7 @@ export function Footer() {
         {/* Logo lockup */}
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-bold text-white">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-xs font-bold text-foreground">
               AP
             </span>
             <span className="font-semibold tracking-tight text-foreground">

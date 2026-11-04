@@ -14,7 +14,7 @@ export function ResearchAreaSection({ area, flip }: { area: ResearchArea; flip: 
   return (
     <section
       id={area.slug}
-      className="scroll-mt-36 rounded-3xl border border-border bg-surface p-6 transition-shadow target:border-primary target:shadow-lg target:shadow-primary/10 sm:p-8 lg:p-10"
+      className="scroll-mt-36 rounded-3xl border border-border bg-surface p-6 transition-colors target:border-primary sm:p-8 lg:p-10"
     >
       <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
         <div className={`h-64 overflow-hidden rounded-2xl border border-border bg-background sm:h-80 ${flip ? "lg:order-2" : ""}`}>
@@ -23,7 +23,7 @@ export function ResearchAreaSection({ area, flip }: { area: ResearchArea; flip: 
 
         <div>
           <div className="flex items-center gap-4">
-            <ResearchIcon icon={area.icon} className="h-12 w-12 shrink-0" iconClassName="h-6 w-6 text-white" />
+            <ResearchIcon icon={area.icon} size="lg" />
             <div>
               <h2 className="text-2xl font-semibold tracking-tight text-foreground">{area.title}</h2>
               <p className="text-sm font-medium text-accent">{area.subtitle}</p>

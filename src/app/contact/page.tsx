@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { siteSettings } from "@/data/site-settings";
 import { Reveal } from "@/components/motion/reveal";
+import { IconMark } from "@/components/icons/icon-mark";
 import { MediaSlot } from "@/components/media/media-slot";
 import { SocialLinks } from "@/components/icons/social-icons";
 import { CopyButton } from "@/components/contact/copy-button";
@@ -55,9 +56,7 @@ const pillClass =
 function DetailCard({ icon: Icon, label, children }: { icon: LucideIcon; label: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-1 items-center gap-4 rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-primary/50 sm:gap-5 sm:p-6">
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent sm:h-12 sm:w-12">
-        <Icon className="h-5 w-5 text-white" />
-      </span>
+      <IconMark icon={Icon} />
       <div className="min-w-0 flex-1">
         <p className="text-xs font-medium uppercase tracking-widest text-muted">{label}</p>
         <div className="mt-1.5 text-base text-foreground sm:text-lg">{children}</div>
@@ -77,17 +76,13 @@ function SectionHeading({ title, intro }: { title: string; intro: string }) {
 
 export default function ContactPage() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="pointer-events-none absolute -top-40 -left-32 h-[30rem] w-[30rem] rounded-full bg-gradient-to-br from-primary/25 via-accent/15 to-transparent blur-3xl" />
-
-      <div className="site-container relative flex flex-col gap-24 py-24">
+    <section>
+      <div className="site-container flex flex-col gap-24 py-24">
         {/* Intro + visual + contact details */}
         <div>
           <Reveal>
-            <p className="w-fit rounded-full border border-border bg-surface px-4 py-1 text-xs font-medium uppercase tracking-widest text-muted">
-              Contact
-            </p>
-            <h1 className="mt-6 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+            <p className="text-sm font-medium text-accent">Contact</p>
+            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
               {contact.headline}
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{contact.intro}</p>
@@ -162,9 +157,7 @@ export default function ContactPage() {
               return (
                 <Reveal key={purpose.title} delay={i * 0.08}>
                   <article className="flex h-full flex-col rounded-3xl border border-border bg-surface p-6 transition-colors hover:border-primary/50 sm:p-8">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent">
-                      <Icon className="h-5 w-5 text-white" />
-                    </span>
+                    <IconMark icon={Icon} size="lg" />
                     <h3 className="mt-5 text-lg font-semibold text-foreground">{purpose.title}</h3>
                     <p className="mt-2 flex-1 leading-relaxed text-muted">{purpose.text}</p>
                     <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
@@ -193,7 +186,7 @@ export default function ContactPage() {
         <section className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
           <Reveal className="flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-4 rounded-3xl border border-border bg-surface p-5 sm:p-6">
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-accent/20 text-lg font-semibold text-primary">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border text-lg font-semibold text-foreground">
                 {leadInitials}
               </span>
               <div className="min-w-0 flex-1">

@@ -36,7 +36,7 @@ export function Navbar() {
           aria-current={pathname === "/" ? "page" : undefined}
           className="flex items-center gap-2 font-semibold tracking-tight text-foreground"
         >
-          <span className="inline-block h-2.5 w-2.5 rounded-full bg-gradient-to-br from-primary to-accent" />
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-accent" />
           {siteSettings.shortName}
         </Link>
 
