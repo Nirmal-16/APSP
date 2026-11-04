@@ -54,8 +54,8 @@ export const siteSettings = {
     lead: {
       name: "Dr. Pravendra Kumar",
       role: "Principal Investigator",
-      email: "", // their direct email; leave empty to use the lab email
-      profile: "/about",
+      email: "pkumar@iitm.ac.in", // their direct email (from the CV); leave empty to use the lab email
+      profile: "/about#principal-investigator",
     },
     // "How can we help?" cards. Each opens an email with this subject line
     // so incoming mail is easy to sort.
