@@ -54,12 +54,15 @@ export function personSlug(person: Person) {
 
 export const people: Person[] = [
   {
-    // Sample entry — replace with the PI's real title, bio, photo and links.
+    // Not shown on the Research Team page — the full PI profile (from the
+    // CV) is on the About page, in data/about.ts. Kept here so publications
+    // still link up with the PI by name.
     name: "Dr. Pravendra Kumar",
     role: "Principal Investigator",
     focus: "Plasma-assisted combustion, electric propulsion and clean energy",
     areas: ["plasma-technologies", "space-propulsion", "clean-energy", "other-technologies"],
-    bio: "Leads the Advanced Plasma & Space Propulsion Group in the Department of Aerospace Engineering, IIT Madras. The group's work spans plasma-assisted combustion and ignition, electrospray and field-emission electric propulsion, sustainable aviation fuels, and meso-scale combustion. (Sample bio — to be replaced with the client's text.)",
+    email: "pkumar@iitm.ac.in",
+    bio: "Assistant Professor in the Department of Aerospace Engineering at IIT Madras since October 2022. Research spans plasma-assisted ignition and combustion, electrospray and field-emission electric propulsion, and cleaner fuels for aviation.",
   },
   {
     name: "Gyandeep",
