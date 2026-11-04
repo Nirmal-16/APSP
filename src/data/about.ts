@@ -83,11 +83,15 @@ export const principalInvestigator = {
     "Aeronautical Society of India",
     "Indian Society of Outer Space Utilization (ISOSU)",
   ],
+  // As listed in the CV, in the CV's order. The CV repeats AS5640 (July-Nov
+  // 2025); it's listed once here.
   teaching: [
-    { code: "AS5600", title: "Introduction to Plasma and its Applications", terms: "Jan–May 2026", developed: true },
-    { code: "AS5640", title: "Combustion, Explosion and Detonation", terms: "Jul–Nov 2025" },
-    { code: "AS5670", title: "Transport Processes in Reacting Flow", terms: "Jan–May 2025" },
-    { code: "AS3270", title: "Propulsion I", terms: "Jul–Nov 2023, 2024" },
-    { code: "AS3271", title: "Propulsion II", terms: "Jan–May 2023, 2024" },
+    { code: "AS3271", title: "Propulsion II", terms: "Jan-May 2023" },
+    { code: "AS3270", title: "Propulsion I", terms: "July-Nov 2023" },
+    { code: "AS3271", title: "Propulsion II", terms: "Jan-May 2024" },
+    { code: "AS3270", title: "Propulsion I", terms: "July-Nov 2024" },
+    { code: "AS5670", title: "Transport Processes in Reacting Flow", terms: "Jan-May 2025" },
+    { code: "AS5640", title: "Combustion, Explosion and Detonation", terms: "July-Nov 2025" },
+    { code: "AS5600", title: "Introduction of Plasma and its Applications", terms: "Jan-May 2026", developed: true },
   ] satisfies Course[],
 };
