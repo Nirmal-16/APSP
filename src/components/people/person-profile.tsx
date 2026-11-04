@@ -40,8 +40,8 @@ function PersonPhoto({ person, sizes }: { person: Person; sizes: string }) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
       ) : (
-        <div className="flex h-full items-center justify-center bg-gradient-to-br from-primary/15 to-accent/15">
-          <span className="text-5xl font-semibold tracking-tight text-primary/70">{initials(person.name)}</span>
+        <div className="flex h-full items-center justify-center bg-surface-hover">
+          <span className="text-5xl font-semibold tracking-tight text-muted">{initials(person.name)}</span>
         </div>
       )}
     </div>

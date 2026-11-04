@@ -10,6 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { principalInvestigator as pi } from "@/data/about";
+import { IconMark } from "@/components/icons/icon-mark";
 import { Reveal } from "@/components/motion/reveal";
 import { StatCounter } from "@/components/motion/stat-counter";
 
@@ -34,9 +35,7 @@ const initials = pi.name
 function CardTitle({ icon: Icon, children }: { icon: LucideIcon; children: React.ReactNode }) {
   return (
     <h3 className="flex items-center gap-3 text-lg font-semibold text-foreground">
-      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent">
-        <Icon className="h-4 w-4 text-white" />
-      </span>
+      <IconMark icon={Icon} size="sm" />
       {children}
     </h3>
   );
@@ -50,12 +49,12 @@ export function PiProfile() {
       <Reveal>
         <article className="overflow-hidden rounded-3xl border border-border bg-surface">
           <div className="grid gap-8 p-6 sm:p-8 md:grid-cols-[auto_1fr] md:gap-10 lg:p-10">
-            <div className="mx-auto h-36 w-36 rounded-full bg-gradient-to-br from-primary to-accent p-1 sm:h-44 sm:w-44 md:mx-0">
+            <div className="mx-auto h-36 w-36 rounded-full border border-border p-1 sm:h-44 sm:w-44 md:mx-0">
               <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-background">
                 {pi.photo ? (
                   <Image src={pi.photo} alt={pi.name} fill sizes="176px" className="object-cover" />
                 ) : (
-                  <span className="text-4xl font-semibold tracking-tight text-primary sm:text-5xl">{initials}</span>
+                  <span className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">{initials}</span>
                 )}
               </div>
             </div>
