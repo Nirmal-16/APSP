@@ -21,7 +21,8 @@ const stats = [
   { value: "PhD", label: "The University of Tokyo" },
   { value: String(countries), label: "Countries of study and research" },
   { value: "1", label: `Patent granted: ${pi.patent}` },
-  { value: String(pi.teaching.length), label: "Courses taught" },
+  // Distinct courses — the teaching list repeats a course for each term.
+  { value: String(new Set(pi.teaching.map((course) => course.code)).size), label: "Courses taught" },
 ];
 
 const initials = pi.name
@@ -200,7 +201,7 @@ export function PiProfile() {
           <ul className="mt-4 divide-y divide-border">
             {pi.teaching.map((course) => (
               <li
-                key={course.code}
+                key={`${course.code}-${course.terms}`}
                 className="grid grid-cols-[4.5rem_1fr] items-baseline gap-x-4 gap-y-1 py-3 last:pb-0 sm:grid-cols-[4.5rem_1fr_auto]"
               >
                 <span className="font-mono text-sm font-semibold text-accent">{course.code}</span>
