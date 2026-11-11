@@ -1,24 +1,52 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Plus } from "lucide-react";
+import { people, personInitials, personSlug } from "@/data/people";
 import type { ResearchArea } from "@/data/research-areas";
 import { ResearchIcon } from "@/components/icons/research-icon";
+import { ResearchTopicDialog } from "@/components/research/research-topic-dialog";
 import { ResearchVisual } from "@/components/research/research-visual";
 
+const labelClass = "text-xs font-medium uppercase tracking-widest text-muted";
+
 export function ResearchAreaSection({ area, flip }: { area: ResearchArea; flip: boolean }) {
-  const [active, setActive] = useState(0);
-  const reduceMotion = useReducedMotion();
-  const topic = area.topics[active];
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [active, setActive] = useState<number | null>(null);
+
+  // The PI works across every area and has a full profile on the About page.
+  const members = people.filter(
+    (p) => !p.alumni && p.role !== "Principal Investigator" && p.areas?.includes(area.slug)
+  );
+
+  // Opens the popup when a topic is selected, and locks page scroll behind it.
+  const isOpen = active !== null;
+  useEffect(() => {
+    if (!isOpen) return;
+    document.documentElement.style.overflow = "hidden";
+    dialogRef.current?.showModal();
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
     <section
       id={area.slug}
       className="scroll-mt-36 rounded-3xl border border-border bg-surface p-6 transition-colors target:border-primary sm:p-8 lg:p-10"
     >
-      <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
-        <div className={`h-64 overflow-hidden rounded-2xl border border-border bg-background sm:h-80 ${flip ? "lg:order-2" : ""}`}>
-          <ResearchVisual variant={area.visual} />
+      {/* 30% visual / 70% content from lg up; the visual fills the card's height. */}
+      <div className={`grid grid-cols-1 gap-8 lg:gap-12 ${flip ? "lg:grid-cols-[7fr_3fr]" : "lg:grid-cols-[3fr_7fr]"}`}>
+        <div
+          className={`relative h-56 overflow-hidden rounded-2xl border border-border bg-background sm:h-72 lg:h-auto lg:min-h-72 ${
+            flip ? "lg:order-2" : ""
+          }`}
+        >
+          <div className="absolute inset-0">
+            <ResearchVisual variant={area.visual} />
+          </div>
         </div>
 
         <div>
@@ -31,43 +59,57 @@ export function ResearchAreaSection({ area, flip }: { area: ResearchArea; flip: 
           </div>
           <p className="mt-5 leading-relaxed text-muted">{area.summary}</p>
 
-          <p className="mt-8 text-xs font-medium uppercase tracking-widest text-muted">
-            Focus areas — select one
-          </p>
+          <p className={`mt-8 ${labelClass}`}>Focus areas — select one to learn more</p>
           <div className="mt-3 flex flex-wrap gap-2">
-            {area.topics.map((t, i) => (
+            {area.topics.map((topic, i) => (
               <button
-                key={t.name}
+                key={topic.name}
                 type="button"
                 onClick={() => setActive(i)}
-                aria-pressed={i === active}
-                className={`rounded-full border px-3.5 py-1.5 text-left text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                  i === active
-                    ? "border-primary bg-primary text-white"
-                    : "border-border text-foreground hover:border-primary hover:text-primary"
-                }`}
+                aria-haspopup="dialog"
+                className="group inline-flex items-center gap-1.5 rounded-full border border-border px-3.5 py-1.5 text-left text-sm text-foreground transition-colors hover:border-primary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
-                {t.name}
+                {topic.name}
+                <Plus className="h-3.5 w-3.5 shrink-0 text-muted transition-colors group-hover:text-primary" />
               </button>
             ))}
           </div>
 
-          <div className="mt-5 min-h-24 rounded-2xl border border-border bg-background p-5" aria-live="polite">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={topic.name}
-                initial={reduceMotion ? false : { opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
-                transition={{ duration: 0.2 }}
-              >
-                <p className="font-medium text-foreground">{topic.name}</p>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted">{topic.description}</p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+          {/* Hidden when nobody is listed under this area yet. */}
+          {members.length > 0 && (
+            <div className="mt-8 border-t border-border pt-6">
+              <h3 className={labelClass}>Researchers</h3>
+              <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-3">
+                {members.map((person) => (
+                  <li key={person.name}>
+                    <Link
+                      href={`/research-team#${personSlug(person)}`}
+                      className="group flex items-center gap-2.5 text-sm font-medium text-foreground transition-colors hover:text-primary"
+                    >
+                      <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-surface-hover text-xs text-muted">
+                        {person.photo ? (
+                          <Image src={person.photo} alt="" fill sizes="36px" className="object-cover" />
+                        ) : (
+                          personInitials(person.name)
+                        )}
+                      </span>
+                      {person.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
+
+      <ResearchTopicDialog
+        area={area}
+        active={active}
+        dialogRef={dialogRef}
+        onSelect={setActive}
+        onClose={() => setActive(null)}
+      />
     </section>
   );
 }
