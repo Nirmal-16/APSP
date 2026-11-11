@@ -4,18 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Check, GraduationCap, Globe, Link2, Mail, Share2, X } from "lucide-react";
-import { personSlug, type Person } from "@/data/people";
+import { personInitials, personSlug, type Person } from "@/data/people";
 import { researchAreas } from "@/data/research-areas";
 import { publicationsBy } from "@/data/publications";
-
-function initials(name: string) {
-  return name
-    .replace(/^Dr\.?\s+/, "")
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("");
-}
 
 function roleLine(person: Person) {
   const role = person.alumni ? `Former ${person.role}` : person.role;
@@ -41,7 +32,7 @@ function PersonPhoto({ person, sizes }: { person: Person; sizes: string }) {
         />
       ) : (
         <div className="flex h-full items-center justify-center bg-surface-hover">
-          <span className="text-5xl font-semibold tracking-tight text-muted">{initials(person.name)}</span>
+          <span className="text-5xl font-semibold tracking-tight text-muted">{personInitials(person.name)}</span>
         </div>
       )}
     </div>
@@ -160,34 +151,55 @@ function ProfileDialog({ person, dialogRef, close, onClose }: DialogProps) {
       onClose={onClose}
       // Clicks on the backdrop land on the <dialog> itself.
       onClick={(e) => e.target === e.currentTarget && close()}
-      className="m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-3xl overflow-y-auto overscroll-contain rounded-3xl border border-border bg-background p-0 text-foreground backdrop:bg-black/60 backdrop:backdrop-blur-sm"
+      className="m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-5xl overflow-y-auto overscroll-contain rounded-3xl border border-border bg-background p-0 text-foreground backdrop:bg-black/60 backdrop:backdrop-blur-sm"
     >
-      <div className="relative grid gap-6 p-6 sm:grid-cols-[13rem_1fr] sm:gap-8 sm:p-8">
+      <div className="relative grid gap-8 p-6 sm:p-8 md:grid-cols-[17rem_1fr] md:gap-10 lg:p-10">
         <button
           type="button"
           onClick={close}
           aria-label="Close"
-          className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-muted transition-colors hover:border-primary hover:text-foreground"
+          className="absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-muted transition-colors hover:border-primary hover:text-foreground"
         >
           <X className="h-4 w-4" />
         </button>
 
-        <div className="w-40 sm:w-full">
-          <PersonPhoto person={person} sizes="13rem" />
-        </div>
+        {/* Photo with research areas and links underneath. Beside the photo on
+            small tablets, stacked under it from md up. */}
+        <aside className="flex flex-col gap-6 sm:flex-row md:flex-col">
+          <div className="w-40 shrink-0 sm:w-48 md:w-full">
+            <PersonPhoto person={person} sizes="17rem" />
+          </div>
+          <div className="flex min-w-0 flex-col gap-5">
+            {person.areas && person.areas.length > 0 && (
+              <div>
+                <h3 className="text-xs font-medium uppercase tracking-widest text-muted">Research areas</h3>
+                <div className="mt-2">
+                  <AreaTags person={person} linked />
+                </div>
+              </div>
+            )}
+            <div>
+              <h3 className="text-xs font-medium uppercase tracking-widest text-muted">Connect</h3>
+              <div className="mt-2 flex flex-wrap gap-2">
+                <PersonLinks person={person} />
+                <button type="button" onClick={copyLink} className={pillClass}>
+                  {copied ? <Check className="h-4 w-4 text-accent" /> : <Share2 className="h-4 w-4" />}
+                  {copied ? "Link copied" : "Copy profile link"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </aside>
 
         <div className="min-w-0">
           <p className="text-sm font-medium text-accent">{roleLine(person)}</p>
-          <h2 className="mt-1 pr-10 text-2xl font-semibold tracking-tight">{person.name}</h2>
+          <h2 className="mt-1 pr-10 text-3xl font-semibold tracking-tight">{person.name}</h2>
           {affiliation && <p className="mt-1 text-sm font-medium text-foreground">{affiliation}</p>}
-          <p className="mt-1 text-sm text-muted">{person.focus}</p>
-          <div className="mt-4">
-            <AreaTags person={person} linked />
-          </div>
-          <p className="mt-5 leading-relaxed text-muted">{person.bio}</p>
+          <p className="mt-3 text-lg leading-snug text-foreground">{person.focus}</p>
+          <p className="mt-5 border-t border-border pt-5 leading-relaxed text-muted">{person.bio}</p>
 
           {pubs.length > 0 && (
-            <div className="mt-6">
+            <div className="mt-8">
               <h3 className="text-xs font-medium uppercase tracking-widest text-muted">Publications</h3>
               <ul className="mt-3 flex flex-col gap-3">
                 {pubs.map((pub) => (
@@ -210,14 +222,6 @@ function ProfileDialog({ person, dialogRef, close, onClose }: DialogProps) {
               </ul>
             </div>
           )}
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            <PersonLinks person={person} />
-            <button type="button" onClick={copyLink} className={pillClass}>
-              {copied ? <Check className="h-4 w-4 text-accent" /> : <Share2 className="h-4 w-4" />}
-              {copied ? "Link copied" : "Copy profile link"}
-            </button>
-          </div>
         </div>
       </div>
     </dialog>

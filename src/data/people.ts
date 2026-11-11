@@ -52,6 +52,15 @@ export function personSlug(person: Person) {
     .replace(/^-|-$/g, "");
 }
 
+export function personInitials(name: string) {
+  return name
+    .replace(/^Dr\.?\s+/, "")
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("");
+}
+
 export const people: Person[] = [
   {
     // Not shown on the Research Team page — the full PI profile (from the

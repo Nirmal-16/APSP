@@ -1,6 +1,30 @@
+import type { Media } from "@/data/media";
+
 // Research areas shown on the Home and Research pages, in display order.
 // Area titles and topic names come from the client. Area summaries and
 // topic descriptions are drafts — send them to the client to confirm.
+
+// Header text for the Research page. draft
+export const researchIntro = {
+  headline: "From cleaner flames to precise thrust in orbit.",
+  text: "Our work spans four connected areas — clean energy, plasma technologies, space propulsion and other emerging technologies. Select a focus area to learn more.",
+};
+
+// How the group works — each line is backed by the team's own bios.
+export const researchApproach = [
+  {
+    title: "Experimental",
+    text: "Laboratory studies of injectors, flames and electrospray thruster prototypes.",
+  },
+  {
+    title: "Computational",
+    text: "Combustion simulation in ANSYS Fluent and particle-in-cell modelling of thruster plumes in OpenFOAM.",
+  },
+  {
+    title: "Physics-based modelling",
+    text: "Models that link fundamental mechanisms to device design, from single injectors to multi-emitter thruster arrays.",
+  },
+];
 
 // `icon` keys map to lucide-react icons via src/components/icons/research-icon.tsx
 export type ResearchIconKey = "leaf" | "atom" | "rocket" | "sparkles";
@@ -9,9 +33,12 @@ export type ResearchIconKey = "leaf" | "atom" | "rocket" | "sparkles";
 // (src/components/research/research-visual.tsx).
 export type ResearchVisualKey = "combustion" | "plasma" | "propulsion" | "microscale";
 
+// One focus area; opens in a popup on the Research page.
 export interface ResearchTopic {
   name: string;
   description: string;
+  details?: string[]; // extra paragraphs shown in the popup
+  media?: Media; // image, video or 3D model; without one, the popup shows the area's animation
 }
 
 export type ResearchAreaSlug = "clean-energy" | "plasma-technologies" | "space-propulsion" | "other-technologies";
@@ -97,6 +124,13 @@ export const researchAreas: ResearchArea[] = [
         name: "Electrospray Propulsion",
         description:
           "Electrostatic extraction of ions and charged droplets from an ionic-liquid Taylor cone, giving precise micro-newton level thrust.",
+        media: {
+          type: "video",
+          src: "/media/electrospray-satellite.mp4",
+          poster: "/media/electrospray-satellite.jpg",
+          caption:
+            "A CubeSat carrying the group's multi-array electrospray thruster — visualisation by Punya Malaiya Jain.",
+        },
       },
       {
         name: "Field Emission Electric Propulsion (FEEP)",
