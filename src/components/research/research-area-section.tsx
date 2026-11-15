@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { ArrowRight, Plus } from "lucide-react";
 import { people, personInitials, personSlug } from "@/data/people";
+import { publicationsInArea } from "@/data/publications";
 import type { ResearchArea } from "@/data/research-areas";
 import { ResearchIcon } from "@/components/icons/research-icon";
 import { ResearchTopicDialog } from "@/components/research/research-topic-dialog";
@@ -20,6 +21,7 @@ export function ResearchAreaSection({ area, flip }: { area: ResearchArea; flip: 
   const members = people.filter(
     (p) => !p.alumni && p.role !== "Principal Investigator" && p.areas?.includes(area.slug)
   );
+  const publicationCount = publicationsInArea(area.slug).length;
 
   // Opens the popup when a topic is selected, and locks page scroll behind it.
   const isOpen = active !== null;
@@ -99,6 +101,16 @@ export function ResearchAreaSection({ area, flip }: { area: ResearchArea; flip: 
                 ))}
               </ul>
             </div>
+          )}
+
+          {publicationCount > 0 && (
+            <Link
+              href={`/publications?area=${area.slug}`}
+              className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent/80"
+            >
+              {publicationCount} {publicationCount === 1 ? "publication" : "publications"} in {area.title}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           )}
         </div>
       </div>

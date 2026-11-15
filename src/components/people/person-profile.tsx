@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowUpRight, Check, GraduationCap, Globe, Link2, Mail, Share2, X } from "lucide-react";
 import { personInitials, personSlug, type Person } from "@/data/people";
 import { researchAreas } from "@/data/research-areas";
-import { publicationsBy } from "@/data/publications";
+import { publicationsBy, publicationUrl } from "@/data/publications";
 
 function roleLine(person: Person) {
   const role = person.alumni ? `Former ${person.role}` : person.role;
@@ -99,8 +99,9 @@ function useProfileDialog(slug: string) {
 
   const open = useCallback(() => {
     const dialog = ref.current;
-    if (!dialog || dialog.open) return;
+    if (!dialog) return;
     document.documentElement.style.overflow = "hidden";
+    if (dialog.open) return;
     dialog.showModal();
     history.replaceState(null, "", `#${slug}`);
   }, [slug]);
@@ -113,6 +114,12 @@ function useProfileDialog(slug: string) {
     window.addEventListener("hashchange", openFromHash);
     return () => window.removeEventListener("hashchange", openFromHash);
   }, [slug, open]);
+
+  // Following a link inside the popup unmounts it without a close event, so
+  // release the scroll lock here too or the next page can't scroll.
+  useEffect(() => () => {
+    document.documentElement.style.overflow = "";
+  }, []);
 
   function onClose() {
     document.documentElement.style.overflow = "";
@@ -202,24 +209,33 @@ function ProfileDialog({ person, dialogRef, close, onClose }: DialogProps) {
             <div className="mt-8">
               <h3 className="text-xs font-medium uppercase tracking-widest text-muted">Publications</h3>
               <ul className="mt-3 flex flex-col gap-3">
-                {pubs.map((pub) => (
-                  <li key={pub.title} className="rounded-xl border border-border bg-surface p-4 text-sm">
-                    <p className="font-medium text-foreground">
-                      {pub.link ? (
-                        <a href={pub.link} target="_blank" rel="noopener noreferrer" className="hover:text-accent">
-                          {pub.title}
-                        </a>
-                      ) : (
-                        pub.title
-                      )}
-                    </p>
-                    <p className="mt-1 text-muted">
-                      {pub.venue}, {pub.year}
-                      {pub.note && <span className="ml-1 text-accent">({pub.note})</span>}
-                    </p>
-                  </li>
-                ))}
+                {pubs.map((pub) => {
+                  const url = publicationUrl(pub);
+                  return (
+                    <li key={`${pub.type}-${pub.title}`} className="rounded-xl border border-border bg-surface p-4 text-sm">
+                      <p className="font-medium text-foreground">
+                        {url ? (
+                          <a href={url} target="_blank" rel="noopener noreferrer" className="hover:text-accent">
+                            {pub.title}
+                          </a>
+                        ) : (
+                          pub.title
+                        )}
+                      </p>
+                      <p className="mt-1 text-muted">
+                        {pub.venue}, {pub.year}
+                        {pub.note && <span className="ml-1 text-accent">({pub.note})</span>}
+                      </p>
+                    </li>
+                  );
+                })}
               </ul>
+              <Link
+                href="/publications"
+                className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-accent transition-colors hover:text-accent/80"
+              >
+                All publications <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
           )}
         </div>
