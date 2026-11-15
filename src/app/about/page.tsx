@@ -33,12 +33,12 @@ export default function AboutPage() {
           </a>
         </Reveal>
 
-        {/* Principal Investigator — the Contact page's "Profile" button links here */}
+        {/* Group Head — the Contact page's "Profile" button links to this id */}
         <section id="principal-investigator" className="scroll-mt-24">
           <Reveal className="mb-10 text-center">
             <p className="text-xs font-medium uppercase tracking-widest text-accent">Leadership</p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-              Principal Investigator
+              Group Head
             </h2>
           </Reveal>
           <PiProfile />
