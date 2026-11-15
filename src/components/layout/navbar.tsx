@@ -6,9 +6,7 @@ import { useState } from "react";
 import { siteSettings } from "@/data/site-settings";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 
-// Reflects the finalized 8-page structure from the 08/09/2026 meeting.
-// /about, /gallery and /insights are placeholder routes until their own
-// build phase lands real content.
+// Contact is a separate button, so it isn't in this list.
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
@@ -82,11 +80,11 @@ export function Navbar() {
             className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground"
           >
             {open ? (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden className="h-4 w-4">
                 <path strokeLinecap="round" d="M5 5l14 14M19 5L5 19" />
               </svg>
             ) : (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden className="h-4 w-4">
                 <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}

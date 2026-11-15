@@ -1,13 +1,8 @@
-// Site-wide text, contact info, and homepage content. Edit these values
-// directly — pages read from here. This whole file gets replaced by a
-// Sanity "Site Settings" document once the CMS is wired up.
+// Site-wide text, contact info and homepage content.
 
 import type { Media } from "@/data/media";
 
-// Visual on the Contact page — see data/media.ts for the options. The
-// interactive electrospray model explains its own parts. The CubeSat video
-// (/media/electrospray-satellite.mp4, by Punya Malaiya Jain) is reserved for
-// the homepage.
+// Visual on the Contact page — see data/media.ts for the options.
 const contactMedia: Media = {
   type: "model",
   model: "electrospray",
@@ -33,7 +28,6 @@ export const siteSettings = {
   // draft
   vision:
     "Propulsion that is cleaner on Earth and more capable in space: sustainable fuels for aviation, and compact, precise thrusters that let small satellites manoeuvre, hold position and change orbit.",
-  foundedYear,
   email: "contact@apsplab.example.edu", // placeholder — replace with the lab's real email
   phone: "+91 00000 00000", // placeholder — replace with the lab's professional contact number
   address,
@@ -46,8 +40,7 @@ export const siteSettings = {
     researchGate: "#",
     twitter: "#",
   },
-  // Which hero 3D model to show on the homepage. Swap once the client
-  // picks one from the Phase 0 intake (see components/three/*).
+  // 3D model in the homepage hero (see components/three/*).
   heroModel: "plasma-orb" as "plasma-orb" | "thruster" | "satellite",
   contact: {
     headline: "Get in Touch",
@@ -55,8 +48,7 @@ export const siteSettings = {
       "Whether you're a student exploring research opportunities, a researcher interested in collaboration, or an industry partner, we'd be glad to hear from you.",
     replyTime: "We usually reply within 2–3 working days.", // draft — confirm with client
     media: contactMedia,
-    // Person named on the Contact page. `profile` links to the PI section on
-    // the About page (the Lab Members page doesn't list the PI).
+    // `profile` links to the PI section on the About page.
     lead: {
       name: "Dr. Pravendra Kumar",
       role: "Principal Investigator",
@@ -115,11 +107,12 @@ export const siteSettings = {
     { label: "Research Areas", value: "4" },
     { label: "Team Members", value: "10+" },
   ],
+  // placeholders — replace with the lab's real collaborators
   collaborators: [
-    { name: "National Space Research Institute", logo: "#" },
-    { name: "Indian Institute of Aerospace Sciences", logo: "#" },
-    { name: "Orbital Dynamics Pvt. Ltd.", logo: "#" },
-    { name: "Bureau of Sustainable Fuels", logo: "#" },
-    { name: "Plasma Systems International", logo: "#" },
+    { name: "National Space Research Institute" },
+    { name: "Indian Institute of Aerospace Sciences" },
+    { name: "Orbital Dynamics Pvt. Ltd." },
+    { name: "Bureau of Sustainable Fuels" },
+    { name: "Plasma Systems International" },
   ],
 };

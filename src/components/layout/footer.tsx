@@ -3,7 +3,6 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { siteSettings } from "@/data/site-settings";
 import { SocialLinks } from "@/components/icons/social-icons";
 
-// Mirrors the navbar's finalized page set (see components/layout/navbar.tsx).
 const links = [
   { href: "/about", label: "About" },
   { href: "/lab-members", label: "Lab Members" },

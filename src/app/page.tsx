@@ -11,8 +11,7 @@ import { SatelliteCanvas } from "@/components/three/satellite-model";
 import { ResearchIcon } from "@/components/icons/research-icon";
 import { NewsCard } from "@/components/news/news-card";
 
-// Maps site-settings.heroModel to its canvas component — swap the setting,
-// not this file, once the client picks a model.
+// Pick the hero model with `heroModel` in data/site-settings.ts.
 const heroModels = {
   "plasma-orb": PlasmaOrbCanvas,
   thruster: ThrusterCanvas,

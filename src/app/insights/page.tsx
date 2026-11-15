@@ -3,8 +3,6 @@ import { openings } from "@/data/hirings";
 import { Reveal } from "@/components/motion/reveal";
 import { NewsCard } from "@/components/news/news-card";
 
-// Combined News / Announcements / Hiring page from the finalized page
-// structure. Blogs get a section here once the client sends posts.
 export default function InsightsPage() {
   return (
     <div className="site-container py-24">

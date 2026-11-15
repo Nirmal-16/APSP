@@ -35,8 +35,7 @@ const socialLinks = [
   { href: siteSettings.socials.twitter, label: "X (Twitter)", Icon: XIcon },
 ];
 
-// Round icon buttons. Links still set to "#" (client hasn't sent them yet)
-// render as inert dashed placeholders rather than dead links.
+// Links still set to "#" render as inert dashed placeholders, not dead links.
 export function SocialLinks() {
   return (
     <div className="flex flex-wrap items-center gap-2">

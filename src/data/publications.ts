@@ -3,7 +3,7 @@
 // Write author names exactly as they appear in data/people.ts so they
 // link up with the right person.
 
-export interface Publication {
+interface Publication {
   title: string;
   authors: string;
   venue: string;
