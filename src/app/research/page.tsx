@@ -18,7 +18,8 @@ const approachIcons: LucideIcon[] = [FlaskConical, Cpu, Sigma];
 export default function ResearchPage() {
   return (
     <div className="site-container py-24">
-      <Reveal className="mx-auto max-w-3xl text-center">
+      {/* Left-aligned on phones, where centred multi-line text looks ragged. */}
+      <Reveal className="mx-auto max-w-3xl sm:text-center">
         <p className="text-sm font-medium text-accent">Research</p>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
           {researchIntro.headline}
@@ -36,7 +37,7 @@ export default function ResearchPage() {
 
       {/* How the group works */}
       <section className="mt-24">
-        <Reveal className="text-center">
+        <Reveal className="sm:text-center">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">How we work</h2>
           <p className="mt-2 text-muted">Experiments, simulation and theory, used together.</p>
         </Reveal>
