@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -61,9 +62,9 @@ function DetailCard({ icon: Icon, label, children }: { icon: LucideIcon; label: 
 
 function SectionHeading({ title, intro }: { title: string; intro: string }) {
   return (
-    <div className="mb-10 text-center">
+    <div className="mb-10 sm:text-center">
       <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{title}</h2>
-      <p className="mt-2 text-muted">{intro}</p>
+      <p className="mt-2 text-pretty text-muted">{intro}</p>
     </div>
   );
 }
@@ -180,8 +181,12 @@ export default function ContactPage() {
         <section className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
           <Reveal className="flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-4 rounded-3xl border border-border bg-surface p-5 sm:p-6">
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border text-lg font-semibold text-foreground">
-                {personInitials(lead.name)}
+              <span className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border text-lg font-semibold text-foreground">
+                {lead.photo ? (
+                  <Image src={lead.photo} alt={lead.name} fill sizes="56px" className="object-cover" />
+                ) : (
+                  personInitials(lead.name)
+                )}
               </span>
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-medium uppercase tracking-widest text-muted">Lead contact</p>

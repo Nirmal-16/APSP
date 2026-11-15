@@ -53,6 +53,7 @@ export const siteSettings = {
       name: "Dr. Pravendra Kumar",
       role: "Principal Investigator",
       email: "pkumar@iitm.ac.in", // their direct email (from the CV); leave empty to use the lab email
+      photo: "/people/pravendra-kumar.jpg", // "" shows initials
       profile: "/about#principal-investigator",
     },
     // "How can we help?" cards. Each opens an email with this subject line
