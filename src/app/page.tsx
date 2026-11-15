@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Compass, Target } from "lucide-react";
 import { siteSettings } from "@/data/site-settings";
 import { researchAreas } from "@/data/research-areas";
 import { news } from "@/data/news";
@@ -17,6 +18,11 @@ const heroModels = {
   thruster: ThrusterCanvas,
   satellite: SatelliteCanvas,
 };
+
+const pillars = [
+  { icon: Target, title: "Mission", text: siteSettings.mission },
+  { icon: Compass, title: "Vision", text: siteSettings.vision },
+];
 
 export default function Home() {
   const HeroModel = heroModels[siteSettings.heroModel];
@@ -81,6 +87,23 @@ export default function Home() {
             {siteSettings.aboutParagraph}
           </p>
         </Reveal>
+
+        {/* Mission & vision — open text and a thin divider, no cards */}
+        <div className="mx-auto mt-16 grid w-full max-w-6xl grid-cols-1 divide-y divide-border text-left md:grid-cols-2 md:divide-x md:divide-y-0">
+          {pillars.map(({ icon: Icon, title, text }, i) => (
+            <Reveal
+              key={title}
+              delay={i * 0.08}
+              className="py-8 first:pt-0 last:pb-0 md:px-12 md:py-0 md:first:pl-0 md:last:pr-0"
+            >
+              <h3 className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-accent">
+                <Icon className="h-4 w-4" />
+                {title}
+              </h3>
+              <p className="mt-4 text-xl leading-snug font-medium tracking-tight text-foreground sm:text-2xl">{text}</p>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
       {/* Research Areas */}

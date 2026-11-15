@@ -27,6 +27,12 @@ export const siteSettings = {
     "We study plasma-assisted combustion, electrospray and field-emission electric propulsion, and sustainable aviation fuels — research that spans how we power aircraft and how spacecraft move through space.",
   aboutParagraph:
     "The Advanced Plasma & Space Propulsion Group carries out research across four areas: clean energy (biofuels and sustainable aviation fuels), plasma technologies, space propulsion, and other emerging technologies. This site shares our research activities with students, PhD scholars, postdocs, and industry — and we welcome anyone interested in exploring our work or joining the laboratory to get in touch.",
+  // draft
+  mission:
+    "To understand and control the physics of plasma, combustion and electric propulsion — and turn that understanding into cleaner, more efficient propulsion systems.",
+  // draft
+  vision:
+    "Propulsion that is cleaner on Earth and more capable in space: sustainable fuels for aviation, and compact, precise thrusters that let small satellites manoeuvre, hold position and change orbit.",
   foundedYear,
   email: "contact@apsplab.example.edu", // placeholder — replace with the lab's real email
   phone: "+91 00000 00000", // placeholder — replace with the lab's professional contact number

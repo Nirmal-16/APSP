@@ -2,7 +2,6 @@ import Image from "next/image";
 import {
   Award,
   Briefcase,
-  Globe,
   GraduationCap,
   Mail,
   Presentation,
@@ -16,11 +15,9 @@ import { StatCounter } from "@/components/motion/stat-counter";
 
 const cardClass = "h-full rounded-3xl border border-border bg-surface p-6 sm:p-8";
 
-const countries = new Set(pi.footprint.map((stop) => stop.country)).size;
-
 const stats = [
   { value: "PhD", label: "The University of Tokyo" },
-  { value: String(countries), label: "Countries of study and research" },
+  { value: String(pi.countries.length), label: "Countries of study and research" },
   { value: "1", label: `Patent granted: ${pi.patent}` },
   // Distinct courses — the teaching list repeats a course for each term.
   { value: String(new Set(pi.teaching.map((course) => course.code)).size), label: "Courses taught" },
@@ -71,11 +68,12 @@ export function PiProfile() {
                 ))}
               </div>
               <h4 className="mt-6 text-xs font-medium uppercase tracking-widest text-muted">Research interests</h4>
-              <p className="mt-2 leading-relaxed text-foreground">{pi.interestsIntro}</p>
-              <ul className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
+              {/* Same bullets as Memberships; the list stays left-aligned on phones too. */}
+              <ul className="mx-auto mt-4 flex w-fit flex-col gap-3 text-left md:mx-0">
                 {pi.interests.map((interest) => (
-                  <li key={interest} className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted">
-                    {interest}
+                  <li key={interest} className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                    <p className="text-foreground">{interest}</p>
                   </li>
                 ))}
               </ul>
@@ -100,35 +98,6 @@ export function PiProfile() {
             ))}
           </div>
         </article>
-      </Reveal>
-
-      {/* International path — a row from md up, a vertical line on phones */}
-      <Reveal>
-        <section className={cardClass}>
-          <CardTitle icon={Globe}>A path across {countries} countries</CardTitle>
-          <ol className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-5 md:gap-0">
-            {pi.footprint.map((stop, i) => {
-              const isLast = i === pi.footprint.length - 1;
-              return (
-                <li key={stop.place} className="relative flex gap-4 md:flex-col md:items-center md:gap-0 md:text-center">
-                  {!isLast && (
-                    <span className="absolute top-3 -bottom-6 left-3 w-px bg-border md:bottom-auto md:left-1/2 md:h-px md:w-full" />
-                  )}
-                  <span
-                    className={`relative h-6 w-6 shrink-0 rounded-full border-2 border-accent ${
-                      isLast ? "bg-accent" : "bg-surface"
-                    }`}
-                  />
-                  <div className="min-w-0 md:mt-3 md:px-2">
-                    <p className="font-medium text-foreground">{stop.place}</p>
-                    <p className="text-sm text-muted">{stop.country}</p>
-                    <p className="mt-1 text-sm font-medium text-accent">{stop.stage}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-        </section>
       </Reveal>
 
       {/* Journey | recognition */}
@@ -181,10 +150,11 @@ export function PiProfile() {
               ))}
             </ul>
             <h4 className="mt-8 text-xs font-medium uppercase tracking-widest text-muted">Memberships</h4>
-            <ul className="mt-3 flex flex-wrap gap-2">
+            <ul className="mt-4 flex flex-col gap-3">
               {pi.memberships.map((membership) => (
-                <li key={membership} className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted">
-                  {membership}
+                <li key={membership} className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                  <p className="text-foreground">{membership}</p>
                 </li>
               ))}
             </ul>
@@ -216,6 +186,32 @@ export function PiProfile() {
               </li>
             ))}
           </ul>
+
+          {/* Same row layout as the courses: date | title, with the event below */}
+          {pi.invitedTalks.length > 0 && (
+            <>
+              <h4 className="mt-10 text-xs font-medium uppercase tracking-widest text-muted">
+                Invited talks &amp; lectures
+              </h4>
+              <ul className="mt-2 divide-y divide-border">
+                {pi.invitedTalks.map((talk) => (
+                  <li
+                    key={`${talk.title}-${talk.date}`}
+                    className="grid grid-cols-1 gap-y-1 py-3 last:pb-0 sm:grid-cols-[8rem_1fr] sm:gap-x-4"
+                  >
+                    <span className="text-sm font-medium text-accent">{talk.date}</span>
+                    <div>
+                      <p className="font-medium text-foreground">{talk.title}</p>
+                      <p className="text-sm text-muted">
+                        {talk.event}
+                        {talk.place && ` · ${talk.place}`}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </section>
       </Reveal>
     </div>

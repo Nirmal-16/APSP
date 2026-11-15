@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Compass, MapPin, Target } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { siteSettings } from "@/data/site-settings";
 import { about } from "@/data/about";
 import { Reveal } from "@/components/motion/reveal";
@@ -9,11 +9,6 @@ export const metadata: Metadata = {
   title: `About — ${siteSettings.labName}`,
   description: about.intro,
 };
-
-const pillars = [
-  { icon: Target, title: "Mission", text: about.mission },
-  { icon: Compass, title: "Vision", text: about.vision },
-];
 
 export default function AboutPage() {
   return (
@@ -36,23 +31,6 @@ export default function AboutPage() {
             Based at IIT Madras, Chennai
           </a>
         </Reveal>
-
-        {/* Mission & vision — open text and a thin divider, no cards */}
-        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 divide-y divide-border md:grid-cols-2 md:divide-x md:divide-y-0">
-          {pillars.map(({ icon: Icon, title, text }, i) => (
-            <Reveal
-              key={title}
-              delay={i * 0.08}
-              className="py-8 first:pt-0 last:pb-0 md:px-12 md:py-0 md:first:pl-0 md:last:pr-0"
-            >
-              <h2 className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-accent">
-                <Icon className="h-4 w-4" />
-                {title}
-              </h2>
-              <p className="mt-4 text-xl leading-snug font-medium tracking-tight text-foreground sm:text-2xl">{text}</p>
-            </Reveal>
-          ))}
-        </div>
 
         {/* Principal Investigator — the Contact page's "Profile" button links here */}
         <section id="principal-investigator" className="scroll-mt-24">

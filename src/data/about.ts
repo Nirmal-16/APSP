@@ -7,12 +7,6 @@ export const about = {
   // draft
   intro:
     "A research group in the Department of Aerospace Engineering at IIT Madras, studying how plasma, cleaner fuels and electric thrusters can make propulsion more efficient — from aircraft engines to small satellites.",
-  // draft
-  mission:
-    "To understand and control the physics of plasma, combustion and electric propulsion — and turn that understanding into cleaner, more efficient propulsion systems.",
-  // draft
-  vision:
-    "Propulsion that is cleaner on Earth and more capable in space: sustainable fuels for aviation, and compact, precise thrusters that let small satellites manoeuvre, hold position and change orbit.",
 };
 
 interface JourneyStep {
@@ -30,6 +24,13 @@ interface Course {
   developed?: boolean; // course created by the PI
 }
 
+interface Talk {
+  title: string;
+  event: string; // event or host institution
+  place?: string;
+  date: string;
+}
+
 export const principalInvestigator = {
   name: "Dr. Pravendra Kumar",
   title: "Assistant Professor",
@@ -41,9 +42,6 @@ export const principalInvestigator = {
     "Dr. Pravendra Kumar has been an Assistant Professor in the Department of Aerospace Engineering at IIT Madras since October 2022, where the group's research spans plasma-assisted ignition and combustion, electrospray and field-emission electric propulsion, and cleaner fuels for aviation.",
     "Before joining IIT Madras, Dr. Kumar was a BK21 Post-doctoral Fellow at Seoul National University, South Korea, and a National Post-doctoral Fellow at IIT Bombay — following a PhD in Aeronautics and Astronautics from The University of Tokyo, Japan.",
   ],
-  // draft
-  interestsIntro:
-    "The common thread is using electric fields and plasma to control how fuels ignite and burn, and how thrusters produce thrust.",
   interests: [
     "Plasma-assisted combustion & ignition",
     "Electrospray & FEEP propulsion",
@@ -61,15 +59,8 @@ export const principalInvestigator = {
     { period: "2009 – 2012", title: "B.Tech, Aeronautical Engineering", place: "Gautam Buddha Technical University, Lucknow", kind: "education" },
     { period: "2006 – 2009", title: "Diploma, Mechanical Engineering (Automobile)", place: "Board of Technical Education, Uttar Pradesh", kind: "education" },
   ] satisfies JourneyStep[],
-  // The international path through the journey above, oldest first. The
-  // number of countries on the page is counted from this list.
-  footprint: [
-    { place: "IIT Kanpur", country: "India", stage: "M.Tech" },
-    { place: "The University of Tokyo", country: "Japan", stage: "PhD" },
-    { place: "IIT Bombay", country: "India", stage: "Post-doctoral Fellow" },
-    { place: "Seoul National University", country: "South Korea", stage: "Post-doctoral Fellow" },
-    { place: "IIT Madras", country: "India", stage: "Assistant Professor" },
-  ],
+  // Countries of study and research, from the journey above.
+  countries: ["India", "Japan", "South Korea"],
   patent: "Hybrid Pintle Injector",
   awards: [
     { title: "National Post-doctoral Fellowship", by: "Government of India", year: "2021–2023" },
@@ -94,4 +85,12 @@ export const principalInvestigator = {
     { code: "AS5640", title: "Combustion, Explosion and Detonation", terms: "July-Nov 2025" },
     { code: "AS5600", title: "Introduction of Plasma and its Applications", terms: "Jan-May 2026", developed: true },
   ] satisfies Course[],
+  // SAMPLE entries to show the layout — not in the CV. Replace with the
+  // client's list, most recent first; the section hides when this is empty.
+  invitedTalks: [
+    { title: "Plasma-assisted ignition for cleaner combustion", event: "Department of Aerospace Engineering, IIT Bombay", place: "Mumbai", date: "March 2026" },
+    { title: "Electrospray thrusters for small satellites", event: "National Space Science Symposium", place: "Bengaluru", date: "December 2025" },
+    { title: "Sustainable aviation fuels: spray and combustion behaviour", event: "Combustion Institute — Indian Section Workshop", place: "Chennai", date: "August 2025" },
+    { title: "An introduction to plasma and its applications", event: "Faculty Development Programme, NIT Tiruchirappalli", place: "Tiruchirappalli", date: "February 2025" },
+  ] satisfies Talk[],
 };
