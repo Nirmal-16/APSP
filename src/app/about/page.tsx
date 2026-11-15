@@ -15,7 +15,8 @@ export default function AboutPage() {
     <section>
       <div className="site-container flex flex-col gap-20 py-24">
         {/* Header */}
-        <Reveal className="mx-auto max-w-4xl text-center">
+        {/* Left-aligned on phones, where centred multi-line text looks ragged. */}
+        <Reveal className="mx-auto max-w-4xl sm:text-center">
           <p className="text-sm font-medium text-accent">About</p>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
             {about.headline}

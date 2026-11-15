@@ -51,19 +51,24 @@ export function PiProfile() {
               </div>
             </div>
 
-            <div className="min-w-0 text-center md:text-left">
-              <h3 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">{pi.name}</h3>
-              <p className="mt-2 font-medium text-accent">
-                {pi.title} · {pi.department}
-              </p>
-              <div className="mt-5 flex flex-col gap-3 leading-relaxed text-muted">
+            <div className="min-w-0">
+              {/* Name and title sit centred under the photo on phones; the
+                  bio and lists stay left-aligned so lines start evenly. */}
+              <div className="text-center md:text-left">
+                <h3 className="text-3xl font-semibold tracking-tight text-balance text-foreground sm:text-4xl">
+                  {pi.name}
+                </h3>
+                <p className="mt-2 font-medium text-balance text-accent">
+                  {pi.title} · {pi.department}
+                </p>
+              </div>
+              <div className="mt-5 flex flex-col gap-3 leading-relaxed text-pretty text-muted">
                 {pi.bio.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
               <h4 className="mt-6 text-xs font-medium uppercase tracking-widest text-muted">Research interests</h4>
-              {/* Same bullets as Memberships; the list stays left-aligned on phones too. */}
-              <ul className="mx-auto mt-4 flex w-fit flex-col gap-3 text-left md:mx-0">
+              <ul className="mt-4 flex flex-col gap-3">
                 {pi.interests.map((interest) => (
                   <li key={interest} className="flex gap-3">
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
