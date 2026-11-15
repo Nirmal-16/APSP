@@ -48,10 +48,10 @@ export const siteSettings = {
       "Whether you're a student exploring research opportunities, a researcher interested in collaboration, or an industry partner, we'd be glad to hear from you.",
     replyTime: "We usually reply within 2–3 working days.", // draft — confirm with client
     media: contactMedia,
-    // `profile` links to the PI section on the About page.
+    // `profile` links to the Group Head section on the About page.
     lead: {
       name: "Dr. Pravendra Kumar",
-      role: "Principal Investigator",
+      role: "Group Head",
       email: "pkumar@iitm.ac.in", // their direct email (from the CV); leave empty to use the lab email
       photo: "/people/pravendra-kumar.jpg", // "" shows initials
       profile: "/about#principal-investigator",
