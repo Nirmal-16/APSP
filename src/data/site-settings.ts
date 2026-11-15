@@ -56,7 +56,7 @@ export const siteSettings = {
     replyTime: "We usually reply within 2–3 working days.", // draft — confirm with client
     media: contactMedia,
     // Person named on the Contact page. `profile` links to the PI section on
-    // the About page (the Research Team page no longer lists the PI).
+    // the About page (the Lab Members page doesn't list the PI).
     lead: {
       name: "Dr. Pravendra Kumar",
       role: "Principal Investigator",

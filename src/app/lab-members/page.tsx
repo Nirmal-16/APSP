@@ -8,7 +8,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { FilterablePeopleGrid, PeopleGrid } from "@/components/people/people-grid";
 
 export const metadata: Metadata = {
-  title: `Research Team — ${siteSettings.labName}`,
+  title: `Lab Members — ${siteSettings.labName}`,
   description: "Meet the researchers and students of the group.",
 };
 
@@ -30,11 +30,11 @@ function SectionHeading({ title, intro }: { title: string; intro: string }) {
   );
 }
 
-export default function ResearchTeamPage() {
+export default function LabMembersPage() {
   return (
     <div className="site-container py-24">
       <Reveal className="mx-auto max-w-2xl text-center">
-        <p className="text-sm font-medium text-accent">Research Team</p>
+        <p className="text-sm font-medium text-accent">Lab Members</p>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
           The people behind the research
         </h1>

@@ -83,7 +83,7 @@ export function ResearchAreaSection({ area, flip }: { area: ResearchArea; flip: 
                 {members.map((person) => (
                   <li key={person.name}>
                     <Link
-                      href={`/research-team#${personSlug(person)}`}
+                      href={`/lab-members#${personSlug(person)}`}
                       className="group flex items-center gap-2.5 text-sm font-medium text-foreground transition-colors hover:text-primary"
                     >
                       <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-surface-hover text-xs text-muted">

@@ -1,6 +1,6 @@
 import type { ResearchAreaSlug } from "@/data/research-areas";
 
-// Lab members shown on the Research Team page.
+// Lab members shown on the Lab Members page.
 //
 // To add someone: append an entry below. Put their photo in /public/people
 // as a 4:5 portrait (e.g. 640×800 JPEG) named after them, and set `photo`.
@@ -43,7 +43,7 @@ export interface Person {
   alumni?: boolean;
 }
 
-// URL-safe id used for shareable links, e.g. /research-team#punya-malaiya-jain
+// URL-safe id used for shareable links, e.g. /lab-members#punya-malaiya-jain
 export function personSlug(person: Person) {
   return person.name
     .replace(/^Dr\.?\s+/, "")
@@ -63,7 +63,7 @@ export function personInitials(name: string) {
 
 export const people: Person[] = [
   {
-    // Not shown on the Research Team page — the full PI profile (from the
+    // Not shown on the Lab Members page — the full PI profile (from the
     // CV) is on the About page, in data/about.ts. Kept here so publications
     // still link up with the PI by name.
     name: "Dr. Pravendra Kumar",
