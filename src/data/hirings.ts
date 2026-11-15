@@ -1,8 +1,7 @@
 // Open positions shown in the Hiring section of the Insights page.
-// Sample/placeholder entries — set `openings` to an empty array to show
-// the "no current openings" state.
+// Placeholder entries — an empty array shows the "no open positions" message.
 
-export interface Opening {
+interface Opening {
   title: string;
   type: "PhD Position" | "Postdoc" | "Intern" | "Research Assistant";
   postedDate: string; // e.g. "2026-06-01"

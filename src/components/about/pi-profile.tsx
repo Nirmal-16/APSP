@@ -9,6 +9,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { principalInvestigator as pi } from "@/data/about";
+import { personInitials } from "@/data/people";
 import { IconMark } from "@/components/icons/icon-mark";
 import { Reveal } from "@/components/motion/reveal";
 import { StatCounter } from "@/components/motion/stat-counter";
@@ -22,13 +23,6 @@ const stats = [
   // Distinct courses — the teaching list repeats a course for each term.
   { value: String(new Set(pi.teaching.map((course) => course.code)).size), label: "Courses taught" },
 ];
-
-const initials = pi.name
-  .replace(/^Dr\.?\s+/, "")
-  .split(/\s+/)
-  .map((part) => part[0])
-  .join("")
-  .slice(0, 2);
 
 function CardTitle({ icon: Icon, children }: { icon: LucideIcon; children: React.ReactNode }) {
   return (
@@ -52,7 +46,7 @@ export function PiProfile() {
                 {pi.photo ? (
                   <Image src={pi.photo} alt={pi.name} fill sizes="176px" className="object-cover" />
                 ) : (
-                  <span className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">{initials}</span>
+                  <span className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">{personInitials(pi.name)}</span>
                 )}
               </div>
             </div>

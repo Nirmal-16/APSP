@@ -1,13 +1,8 @@
 @import "tailwindcss";
 
-/* "Plasma" theme — violet (magnetic containment field) as primary, cyan
-   (ionized plasma glow) as accent, calibrated separately for light and
-   dark backgrounds so text always meets AA contrast.
-
-   Default (no preference stored yet) follows the OS setting via
-   prefers-color-scheme. An explicit choice is stored as
-   documentElement.dataset.theme = "light" | "dark" by the theme toggle
-   and always wins over the OS setting. */
+/* Violet primary, cyan accent; light and dark palettes both meet AA contrast.
+   The OS setting applies until the theme toggle sets <html data-theme>,
+   which always wins. */
 
 :root {
   --background: #f7f8fc;
@@ -61,10 +56,8 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Type scale — one step larger than Tailwind's default (client request,
-   04/10 meeting). Only font sizes change; spacing and layout don't, so
-   this is safe to tune here without touching any page.
-   Tailwind default in comments. */
+/* Type scale — one step larger than Tailwind's default (shown in comments).
+   Only font sizes change, so it can be tuned here without touching any page. */
 @theme {
   --text-xs: 0.8125rem; /* 0.75rem  → 13px */
   --text-sm: 0.9375rem; /* 0.875rem → 15px */
@@ -78,8 +71,7 @@
   --text-6xl: 4rem; /* 3.75rem → 64px */
 }
 
-/* One page-width rule for the whole site. Wide max-width + slim gutters so
-   content fills large screens instead of sitting in a narrow centre column. */
+/* Page width for the whole site: wide, with slim gutters. */
 @utility site-container {
   width: 100%;
   max-width: 100rem;

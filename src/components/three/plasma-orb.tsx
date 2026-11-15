@@ -29,8 +29,6 @@ function PlasmaCore() {
 }
 
 export function PlasmaOrbCanvas() {
-  // Guard against SSR: WebGL only exists in the browser, so we render a
-  // placeholder on the server and swap in the real canvas after mount.
   const mounted = useMounted();
 
   if (!mounted) {
@@ -44,8 +42,6 @@ export function PlasmaOrbCanvas() {
       <pointLight position={[-5, -3, -5]} intensity={0.9} color="#818cf8" />
       <PlasmaCore />
       <Sparkles count={100} scale={4} size={2.5} speed={0.4} color="#22d3ee" />
-      {/* Drag to spin the orb around its own center; no zoom/pan so it
-          can't be dragged out of view. Auto-rotates gently when idle. */}
       <OrbitControls
         enableZoom={false}
         enablePan={false}

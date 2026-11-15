@@ -35,7 +35,7 @@ export function ThemeToggle() {
       className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-primary hover:text-foreground"
     >
       {theme === "dark" ? (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden className="h-4 w-4">
           <circle cx="12" cy="12" r="4.2" />
           <path
             strokeLinecap="round"
@@ -43,7 +43,7 @@ export function ThemeToggle() {
           />
         </svg>
       ) : (
-        <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className="h-4 w-4">
           <path d="M20.5 14.7A8.5 8.5 0 1 1 9.3 3.5a7 7 0 0 0 11.2 11.2Z" />
         </svg>
       )}

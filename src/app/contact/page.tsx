@@ -14,6 +14,7 @@ import {
   Share2,
   type LucideIcon,
 } from "lucide-react";
+import { personInitials } from "@/data/people";
 import { siteSettings } from "@/data/site-settings";
 import { Reveal } from "@/components/motion/reveal";
 import { IconMark } from "@/components/icons/icon-mark";
@@ -39,13 +40,6 @@ const purposeIcons: Record<(typeof contact.purposes)[number]["icon"], LucideIcon
   research: FlaskConical,
   industry: Building2,
 };
-
-const leadInitials = lead.name
-  .replace(/^Dr\.?\s+/, "")
-  .split(/\s+/)
-  .map((part) => part[0])
-  .join("")
-  .slice(0, 2);
 
 const linkClass = "break-words transition-colors hover:text-accent";
 const accentLinkClass =
@@ -187,7 +181,7 @@ export default function ContactPage() {
           <Reveal className="flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-4 rounded-3xl border border-border bg-surface p-5 sm:p-6">
               <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border text-lg font-semibold text-foreground">
-                {leadInitials}
+                {personInitials(lead.name)}
               </span>
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-medium uppercase tracking-widest text-muted">Lead contact</p>

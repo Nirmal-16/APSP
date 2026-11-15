@@ -10,8 +10,8 @@ function PublicationList({ items }: { items: typeof publications }) {
       {items.map((pub) => (
         <li key={pub.title} className="rounded-2xl border border-border bg-surface p-6">
           <p className="font-medium text-foreground">
-            {pub.link && pub.link !== "#" ? (
-              <a href={pub.link} className="hover:text-accent">
+            {pub.link ? (
+              <a href={pub.link} target="_blank" rel="noopener noreferrer" className="hover:text-accent">
                 {pub.title}
               </a>
             ) : (
