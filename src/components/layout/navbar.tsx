@@ -12,7 +12,7 @@ import { ThemeToggle } from "@/components/theme/theme-toggle";
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/research-team", label: "Research Team" },
+  { href: "/lab-members", label: "Lab Members" },
   { href: "/research", label: "Research" },
   { href: "/publications", label: "Publications" },
   { href: "/gallery", label: "Gallery" },

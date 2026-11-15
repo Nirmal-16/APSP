@@ -93,7 +93,7 @@ function PersonLinks({ person }: { person: Person }) {
 
 // Native <dialog>: showModal() gives focus trapping, Esc-to-close and a
 // backdrop for free. Opening sets #slug in the URL so a profile can be
-// shared; visiting /research-team#slug opens it directly.
+// shared; visiting /lab-members#slug opens it directly.
 function useProfileDialog(slug: string) {
   const ref = useRef<HTMLDialogElement>(null);
 
