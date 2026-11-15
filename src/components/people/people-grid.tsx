@@ -39,7 +39,7 @@ export function FilterablePeopleGrid({ members, children }: { members: Person[];
   return (
     <>
       {roles.length > 1 && (
-        <div role="group" aria-label="Filter by role" className="mb-10 flex flex-wrap justify-center gap-2">
+        <div role="group" aria-label="Filter by role" className="mb-10 flex flex-wrap gap-2 sm:justify-center">
           {options.map(({ value, label, count }) => (
             <button
               key={value}
