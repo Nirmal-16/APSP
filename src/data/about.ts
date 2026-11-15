@@ -36,7 +36,7 @@ export const principalInvestigator = {
   title: "Assistant Professor",
   department: "Department of Aerospace Engineering, IIT Madras",
   email: "pkumar@iitm.ac.in",
-  photo: undefined as string | undefined, // e.g. "/people/pravendra-kumar.jpg" — 1:1 or 4:5 portrait
+  photo: "/people/pravendra-kumar.jpg", // square portrait, shown in a circle; "" shows initials
   // Written from the CV — confirm wording with the client.
   bio: [
     "Dr. Pravendra Kumar has been an Assistant Professor in the Department of Aerospace Engineering at IIT Madras since October 2022, where the group's research spans plasma-assisted ignition and combustion, electrospray and field-emission electric propulsion, and cleaner fuels for aviation.",
