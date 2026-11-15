@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState, useSyncExternalStore } from "react";
+import { Fragment, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Check, ChevronDown, Copy, FileText, Quote, Search, X } from "lucide-react";
 import { people, personSlug } from "@/data/people";
@@ -18,6 +18,7 @@ import {
   type Publication,
   type PublicationType,
 } from "@/data/publications";
+import { YearIndex } from "@/components/layout/year-index";
 import { typeStyle } from "@/components/publications/type-style";
 
 // Lab members (not the Group Head) whose names link to their profiles.
@@ -195,54 +196,6 @@ const searchText = (pub: Publication) =>
 const isArea = (value: string | null): value is ResearchAreaSlug => researchAreas.some((a) => a.slug === value);
 const noSubscribe = () => () => {};
 const readUrlArea = () => new URLSearchParams(location.search).get("area");
-
-// Sticky jump list beside the results on wide screens; highlights the group in view.
-function YearIndex({ groups }: { groups: { id: string; heading: string }[] }) {
-  const [current, setCurrent] = useState<string | null>(null);
-  const ids = groups.map((g) => g.id).join(",");
-
-  useEffect(() => {
-    // Only a thin band near the top of the screen counts as "in view".
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setCurrent(entry.target.id.replace("section-", ""));
-        }
-      },
-      { rootMargin: "-20% 0px -75% 0px" }
-    );
-    for (const id of ids.split(",")) {
-      const section = document.getElementById(`section-${id}`);
-      if (section) observer.observe(section);
-    }
-    return () => observer.disconnect();
-  }, [ids]);
-
-  return (
-    <nav aria-label="Jump to year" className="hidden xl:block">
-      <ul className="sticky top-24 flex flex-col gap-1 border-l border-border">
-        {groups.map((group) => {
-          const active = current === group.id;
-          return (
-            <li key={group.id}>
-              <a
-                href={`#section-${group.id}`}
-                aria-current={active ? "true" : undefined}
-                className={`-ml-px block border-l-2 py-1 pl-4 text-sm transition-colors ${
-                  active
-                    ? "border-primary font-medium text-foreground"
-                    : "border-transparent text-muted hover:text-foreground"
-                }`}
-              >
-                {group.heading}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
-  );
-}
 
 // Filters by type and research area, plus search, grouped by year (newest
 // first). The Research page links here with ?area=<slug>.
