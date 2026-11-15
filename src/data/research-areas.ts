@@ -4,9 +4,10 @@ import type { Media } from "@/data/media";
 // Area titles and topic names come from the client. Area summaries and
 // topic descriptions are drafts — send them to the client to confirm.
 //
-// Topic images in /public/research are SAMPLES from Wikimedia Commons
-// (public domain or Creative Commons, credited in each caption) until the
-// lab sends its own photos. Swap `src`, `alt` and `caption` to replace one.
+// Topic images in /public/research are SAMPLES from Wikimedia Commons until
+// the lab sends its own photos; each one's source and license is noted in a
+// comment beside it. To replace one, put the new photo in /public/research
+// and change `src` and `alt`. An optional `caption` shows over the image.
 
 // Header text for the Research page. draft
 export const researchIntro = {
@@ -75,7 +76,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/biofuels.jpg",
           alt: "Sample bottles of algae oil, blended algae oil and corn oil biofuels",
-          caption: "Sample image · Biofuel samples · USDA / Lance Cheung (public domain)",
+          // Sample image: Biofuel samples · USDA / Lance Cheung (public domain)
         },
       },
       {
@@ -86,7 +87,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/sustainable-aviation-fuel.jpg",
           alt: "Fuel tanks and a fuel truck at Frankfurt Airport with a Sustainable Aviation Fuel sign",
-          caption: "Sample image · Sustainable aviation fuel at Frankfurt Airport · Ubahnverleih (CC0)",
+          // Sample image: Sustainable aviation fuel at Frankfurt Airport · Ubahnverleih (CC0)
         },
       },
       {
@@ -97,7 +98,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/engine-hot-fire.jpg",
           alt: "RS-25 rocket engine hot-fire test at a test stand, with a large exhaust plume",
-          caption: "Sample image · RS-25 engine hot-fire test · NASA / Chris Russell (public domain)",
+          // Sample image: RS-25 engine hot-fire test · NASA / Chris Russell (public domain)
         },
       },
       {
@@ -108,7 +109,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/pintle-injector-spray.jpg",
           alt: "Spray sheet from a pintle injector with inner and outer flow",
-          caption: "Sample image · Pintle injector spray · Christopher Nilsen (CC0)",
+          // Sample image: Pintle injector spray · Christopher Nilsen (CC0)
         },
       },
     ],
@@ -130,7 +131,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/plasma-discharge.jpg",
           alt: "Branching plasma discharge streamers glowing above an electrode",
-          caption: "Sample image · Plasma discharge streamers · Themarnicle (CC BY 4.0)",
+          // Sample image: Plasma discharge streamers · Themarnicle (CC BY 4.0)
         },
       },
       {
@@ -141,7 +142,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/microwave-plasma.jpg",
           alt: "Glowing filaments of a microwave-driven plasma",
-          caption: "Sample image · Microwave plasma filamentation · AlexandraDuarteFranco (CC BY-SA 4.0)",
+          // Sample image: Microwave plasma filamentation · AlexandraDuarteFranco (CC BY-SA 4.0)
         },
       },
     ],
@@ -163,7 +164,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/spacecraft-thrusters.jpg",
           alt: "Reaction control thrusters firing on a spacecraft in orbit",
-          caption: "Sample image · Reaction control thrusters firing in orbit · NASA (public domain)",
+          // Sample image: Reaction control thrusters firing in orbit · NASA (public domain)
         },
       },
       {
@@ -186,7 +187,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/ion-thruster.jpg",
           alt: "An electric ion thruster firing a blue ion beam in a vacuum chamber",
-          caption: "Sample image · Electric thruster test firing · NASA (public domain)",
+          // Sample image: Electric thruster test firing · NASA (public domain)
         },
       },
       {
@@ -197,7 +198,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/nuclear-thermal-rocket.jpg",
           alt: "Artist's concept of a nuclear thermal rocket departing Earth for Mars",
-          caption: "Sample image · Nuclear thermal rocket concept · NASA / Pat Rawlings (public domain)",
+          // Sample image: Nuclear thermal rocket concept · NASA / Pat Rawlings (public domain)
         },
       },
     ],
@@ -219,7 +220,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/small-flame.jpg",
           alt: "Ring of small blue premixed gas flames",
-          caption: "Sample image · Small premixed gas flames · George Shuklin (public domain)",
+          // Sample image: Small premixed gas flames · George Shuklin (public domain)
         },
       },
       {
@@ -230,7 +231,7 @@ export const researchAreas: ResearchArea[] = [
           type: "image",
           src: "/research/high-altitude.jpg",
           alt: "Pangong Lake in Ladakh at high altitude, with mountains and a road",
-          caption: "Sample image · Pangong Lake, Ladakh · Narender9 (CC BY-SA 4.0)",
+          // Sample image: Pangong Lake, Ladakh · Narender9 (CC BY-SA 4.0)
         },
       },
     ],
