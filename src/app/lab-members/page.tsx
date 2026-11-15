@@ -23,9 +23,9 @@ const alumni = sorted.filter((p) => p.alumni);
 
 function SectionHeading({ title, intro }: { title: string; intro: string }) {
   return (
-    <Reveal className="mb-10 text-center">
+    <Reveal className="mb-10 sm:text-center">
       <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{title}</h2>
-      <p className="mt-2 text-muted">{intro}</p>
+      <p className="mt-2 text-pretty text-muted">{intro}</p>
     </Reveal>
   );
 }
@@ -33,7 +33,8 @@ function SectionHeading({ title, intro }: { title: string; intro: string }) {
 export default function LabMembersPage() {
   return (
     <div className="site-container py-24">
-      <Reveal className="mx-auto max-w-2xl text-center">
+      {/* Left-aligned on phones, where centred multi-line text looks ragged. */}
+      <Reveal className="mx-auto max-w-2xl sm:text-center">
         <p className="text-sm font-medium text-accent">Lab Members</p>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
           The people behind the research
