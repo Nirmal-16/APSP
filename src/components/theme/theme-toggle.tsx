@@ -3,14 +3,14 @@
 import { useSyncExternalStore } from "react";
 
 // <html data-theme> is the source of truth — the inline script in
-// app/layout.tsx sets it before paint (stored choice, else OS setting).
+// app/layout.tsx sets it before paint (stored choice, else dark).
 function subscribe(onChange: () => void) {
   const observer = new MutationObserver(onChange);
   observer.observe(document.documentElement, { attributeFilter: ["data-theme"] });
   return () => observer.disconnect();
 }
 
-const getTheme = () => (document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+const getTheme = () => (document.documentElement.dataset.theme === "light" ? "light" : "dark");
 
 export function ThemeToggle() {
   const theme = useSyncExternalStore(subscribe, getTheme, () => null);

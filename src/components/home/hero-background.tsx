@@ -157,22 +157,18 @@ export function HeroBackground() {
     const onTabChange = () => (document.hidden ? stop() : start());
     document.addEventListener("visibilitychange", onTabChange);
 
-    // Recolour when the theme toggle or the OS theme changes.
-    const recolor = () => {
+    // Recolour when the theme toggle is used.
+    const themeObserver = new MutationObserver(() => {
       readColors();
       draw(performance.now());
-    };
-    const themeObserver = new MutationObserver(recolor);
+    });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    const osTheme = matchMedia("(prefers-color-scheme: dark)");
-    osTheme.addEventListener("change", recolor);
 
     return () => {
       stop();
       resizeObserver.disconnect();
       visibility.disconnect();
       themeObserver.disconnect();
-      osTheme.removeEventListener("change", recolor);
       document.removeEventListener("visibilitychange", onTabChange);
     };
   }, []);
