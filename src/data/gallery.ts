@@ -1,4 +1,5 @@
 import type { ResearchAreaSlug } from "@/data/research-areas";
+import { slugify } from "@/lib/slugify";
 
 // Albums shown on the Gallery page, grouped by year there (newest first) and
 // filtered by category. Each album is one event or story; its first photo is
@@ -266,18 +267,5 @@ export const gallery: GalleryAlbum[] = [
 
 // URL-safe id used for shareable links, e.g. /gallery?album=welcoming-new-phd-scholars
 export function albumSlug(album: GalleryAlbum) {
-  return album.title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
-export function formatGalleryDate(date: string) {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    // Dates are parsed as UTC; formatting in UTC keeps them from shifting a day.
-    timeZone: "UTC",
-  });
+  return slugify(album.title);
 }

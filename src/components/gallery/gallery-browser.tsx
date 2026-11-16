@@ -2,17 +2,11 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { CalendarDays, Images, MapPin, Maximize2, Search, X } from "lucide-react";
-import {
-  albumSlug,
-  formatGalleryDate,
-  gallery,
-  galleryCategories,
-  type GalleryAlbum,
-  type GalleryCategory,
-} from "@/data/gallery";
-import { GalleryImage } from "@/components/gallery/gallery-image";
+import { albumSlug, gallery, galleryCategories, type GalleryAlbum, type GalleryCategory } from "@/data/gallery";
+import { formatDate } from "@/lib/format-date";
 import { GalleryLightbox, type GalleryView } from "@/components/gallery/gallery-lightbox";
 import { YearIndex } from "@/components/layout/year-index";
+import { FittedImage } from "@/components/media/fitted-image";
 
 function chipClass(active: boolean) {
   return `shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
@@ -106,7 +100,7 @@ function Highlights({ onOpen }: { onOpen: (album: GalleryAlbum) => void }) {
                 aria-haspopup="dialog"
                 className="group relative block h-full w-full overflow-hidden rounded-3xl border border-border bg-black text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
-                <GalleryImage
+                <FittedImage
                   src={album.photos[0].src}
                   alt={album.photos[0].alt}
                   sizes={lead ? "(min-width: 1024px) 66vw, 100vw" : "(min-width: 1024px) 33vw, 100vw"}
@@ -129,7 +123,7 @@ function Highlights({ onOpen }: { onOpen: (album: GalleryAlbum) => void }) {
                     {album.title}
                   </span>
                   <span className="mt-2 block text-sm text-white/75">
-                    {formatGalleryDate(album.date)}
+                    {formatDate(album.date)}
                     {album.venue && ` · ${album.venue}`}
                   </span>
                 </span>
@@ -148,7 +142,7 @@ function GalleryCard({ album, onOpen }: { album: GalleryAlbum; onOpen: () => voi
     // The title's button stretches over the whole card, so any click opens it.
     <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface transition-colors hover:border-primary/50 has-[:focus-visible]:border-primary has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/40">
       <div className="relative aspect-[4/3] overflow-hidden border-b border-border bg-surface-hover">
-        <GalleryImage
+        <FittedImage
           src={cover.src}
           alt={cover.alt}
           sizes="(min-width: 1536px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -189,7 +183,7 @@ function GalleryCard({ album, onOpen }: { album: GalleryAlbum; onOpen: () => voi
         <div className="mt-5 flex flex-col gap-1.5 border-t border-border pt-4 text-sm text-muted">
           <p className="flex items-center gap-2">
             <CalendarDays className="h-4 w-4 shrink-0 text-accent" />
-            <time dateTime={album.date}>{formatGalleryDate(album.date)}</time>
+            <time dateTime={album.date}>{formatDate(album.date)}</time>
           </p>
           {album.venue && (
             <p className="flex items-center gap-2">
