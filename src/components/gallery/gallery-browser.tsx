@@ -57,7 +57,9 @@ function readUrl(search: string) {
   };
 }
 
-function writeUrl(category: GalleryCategory | "All", view: GalleryView | null) {
+// Opening the lightbox adds a history entry, so the browser's Back button
+// (or a phone's back gesture) closes it instead of leaving the page.
+function writeUrl(category: GalleryCategory | "All", view: GalleryView | null, push = false) {
   const params = new URLSearchParams();
   if (category !== "All") params.set("category", category);
   if (view) {
@@ -65,7 +67,9 @@ function writeUrl(category: GalleryCategory | "All", view: GalleryView | null) {
     if (view.photo > 0) params.set("photo", String(view.photo + 1));
   }
   const query = params.toString();
-  history.replaceState(null, "", query ? `${location.pathname}?${query}` : location.pathname);
+  const url = query ? `${location.pathname}?${query}` : location.pathname;
+  if (push) history.pushState({ lightbox: true }, "", url);
+  else history.replaceState(history.state, "", url);
 }
 
 function PhotoCount({ count }: { count: number }) {
@@ -142,7 +146,7 @@ function GalleryCard({ album, onOpen }: { album: GalleryAlbum; onOpen: () => voi
   const cover = album.photos[0];
   return (
     // The title's button stretches over the whole card, so any click opens it.
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface transition-colors focus-within:border-primary hover:border-primary/50">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface transition-colors hover:border-primary/50 has-[:focus-visible]:border-primary has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/40">
       <div className="relative aspect-[4/3] overflow-hidden border-b border-border bg-surface-hover">
         <GalleryImage
           src={cover.src}
@@ -170,7 +174,7 @@ function GalleryCard({ album, onOpen }: { album: GalleryAlbum; onOpen: () => voi
         {album.event && (
           <p className="line-clamp-1 text-xs font-medium uppercase tracking-widest text-accent">{album.event}</p>
         )}
-        <h3 className={`font-semibold leading-snug text-pretty text-foreground ${album.event ? "mt-2" : ""}`}>
+        <h4 className={`font-semibold leading-snug text-pretty text-foreground ${album.event ? "mt-2" : ""}`}>
           <button
             type="button"
             onClick={onOpen}
@@ -179,7 +183,7 @@ function GalleryCard({ album, onOpen }: { album: GalleryAlbum; onOpen: () => voi
           >
             {album.title}
           </button>
-        </h3>
+        </h4>
         <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-pretty text-muted">{album.description}</p>
 
         <div className="mt-5 flex flex-col gap-1.5 border-t border-border pt-4 text-sm text-muted">
@@ -218,7 +222,15 @@ export function GalleryBrowser() {
 
   function selectView(value: GalleryView | null) {
     setPickedView(value);
-    writeUrl(category, value);
+    writeUrl(category, value, view === null);
+  }
+
+  // Closing undoes the entry added on open; a lightbox opened from a shared
+  // link has none, so its URL is just tidied instead.
+  function closeView() {
+    setPickedView(null);
+    if (history.state?.lightbox) history.back();
+    else writeUrl(category, null);
   }
 
   // Opens the lightbox when an album is selected, and locks page scroll behind it.
@@ -231,6 +243,17 @@ export function GalleryBrowser() {
       document.documentElement.style.overflow = "";
     };
   }, [isOpen]);
+
+  // Back and Forward move between the open photo and the grid.
+  useEffect(() => {
+    function onPopState() {
+      const urlView = readUrl(location.search).view;
+      setPickedView(urlView);
+      if (!urlView) dialogRef.current?.close();
+    }
+    addEventListener("popstate", onPopState);
+    return () => removeEventListener("popstate", onPopState);
+  }, []);
 
   const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
   const matching = newestFirst.filter((album) => terms.every((term) => searchText(album).includes(term)));
@@ -350,7 +373,7 @@ export function GalleryBrowser() {
         view={view}
         dialogRef={dialogRef}
         onView={selectView}
-        onClose={() => selectView(null)}
+        onClose={closeView}
       />
     </div>
   );
