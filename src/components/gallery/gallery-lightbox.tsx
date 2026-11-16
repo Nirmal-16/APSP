@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -63,6 +63,17 @@ export function GalleryLightbox({ albums, view, dialogRef, onView, onClose }: Pr
     if (e.key === "ArrowRight" && next) onView(next);
   }
 
+  // Swiping the photo sideways on touch screens works like the arrows.
+  const touchStartX = useRef<number | null>(null);
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current === null) return;
+    const distance = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(distance) < 50) return;
+    const target = distance < 0 ? next : previous;
+    if (target) onView(target);
+  }
+
   const album = view?.album;
   const photo = view && album?.photos[view.photo];
 
@@ -89,7 +100,11 @@ export function GalleryLightbox({ albums, view, dialogRef, onView, onClose }: Pr
           </button>
 
           <div className="flex min-h-0 flex-col bg-black">
-            <div className="relative h-[45vh] overflow-hidden sm:h-[55vh] lg:h-auto lg:flex-1">
+            <div
+              onTouchStart={(e) => (touchStartX.current = e.touches[0].clientX)}
+              onTouchEnd={onTouchEnd}
+              className="relative h-[45vh] overflow-hidden sm:h-[55vh] lg:h-auto lg:flex-1"
+            >
               {/* The key swaps both layers together when stepping between photos. */}
               <GalleryImage key={photo.src + view.photo} src={photo.src} alt={photo.alt} sizes="(min-width: 1024px) 70vw, 100vw" />
               {previous && (
@@ -113,7 +128,9 @@ export function GalleryLightbox({ albums, view, dialogRef, onView, onClose }: Pr
               <ul aria-label="Photos in this album" className="flex shrink-0 gap-2 overflow-x-auto p-3">
                 {album.photos.map((p, i) => (
                   <li key={p.src + i} className="shrink-0">
+                    {/* The current thumbnail scrolls into view in long albums. */}
                     <button
+                      ref={i === view.photo ? (el) => el?.scrollIntoView({ block: "nearest", inline: "nearest" }) : undefined}
                       type="button"
                       onClick={() => onView({ album, photo: i })}
                       aria-label={`Photo ${i + 1}`}

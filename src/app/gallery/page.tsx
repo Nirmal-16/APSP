@@ -36,22 +36,28 @@ export default function GalleryPage() {
         </p>
       </Reveal>
 
-      <div className="mx-auto max-w-[96rem]">
-        <Reveal delay={0.1} className="mx-auto mt-12 max-w-4xl">
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.label} className="flex flex-col justify-center bg-surface px-4 py-6 text-center">
-                <StatCounter value={stat.value} />
-                <p className="mt-1 text-sm text-muted">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+      {gallery.length === 0 ? (
+        <p className="mx-auto mt-12 max-w-xl rounded-2xl border border-border bg-surface p-10 text-center text-muted">
+          Photos from the lab are on their way. Check back soon.
+        </p>
+      ) : (
+        <div className="mx-auto max-w-[96rem]">
+          <Reveal delay={0.1} className="mx-auto mt-12 max-w-4xl">
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-4">
+              {stats.map((stat) => (
+                <div key={stat.label} className="flex flex-col justify-center bg-surface px-4 py-6 text-center">
+                  <StatCounter value={stat.value} />
+                  <p className="mt-1 text-sm text-muted">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
 
-        <Reveal delay={0.15} className="mt-16">
-          <GalleryBrowser />
-        </Reveal>
-      </div>
+          <Reveal delay={0.15} className="mt-16">
+            <GalleryBrowser />
+          </Reveal>
+        </div>
+      )}
 
       <BackToTop />
     </div>
