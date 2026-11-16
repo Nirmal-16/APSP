@@ -13,6 +13,12 @@ const models: Record<ModelKey, React.ComponentType> = {
   electrospray: dynamic(() => import("@/components/three/electrospray-model").then((m) => m.ElectrosprayCanvas), { ssr: false, loading }),
 };
 
+// One 3D model on its own, filling its parent (used by the homepage hero).
+export function ModelCanvas({ model }: { model: ModelKey }) {
+  const Model = models[model];
+  return <Model />;
+}
+
 // Renders a Media entry as a framed figure. Pass `className` to
 // change the frame's aspect ratio or size.
 export function MediaSlot({ media, className = "aspect-[4/3]" }: { media: Media; className?: string }) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { daysUntil, openings } from "@/data/hirings";
+import { daysUntil, openOpenings } from "@/data/hirings";
 import { OpeningCard } from "@/components/insights/opening-card";
 import { Reveal } from "@/components/motion/reveal";
 
@@ -15,9 +15,7 @@ export function OpeningsList({ buildDate }: { buildDate: string }) {
   const visitorToday = useSyncExternalStore(noSubscribe, readToday, () => null);
   const today = visitorToday ?? buildDate;
 
-  const open = openings
-    .filter((opening) => !opening.deadline || daysUntil(opening.deadline, today) >= 0)
-    .sort((a, b) => b.postedDate.localeCompare(a.postedDate));
+  const open = openOpenings(today);
 
   if (open.length === 0) {
     return (

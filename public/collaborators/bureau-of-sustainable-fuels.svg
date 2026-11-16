@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" role="img" aria-label="Bureau of Sustainable Fuels">
+  <path d="M40 12 C52 28 60 38 60 49 C60 60 51 68 40 68 C29 68 20 60 20 49 C20 38 28 28 40 12 Z" fill="#15803d"/>
+  <path d="M40 62 C40 50 44 42 52 36 C46 46 44 52 44 62 Z" fill="#bbf7d0"/>
+  <text x="74" y="42" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800" fill="#15803d" letter-spacing="2">BSF</text>
+  <text x="75" y="58" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#64748b" letter-spacing="0.5">SUSTAINABLE FUELS BUREAU</text>
+</svg>
