@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-// Shows the whole photo whatever its shape: the photo is contained, and a
+// Shows the whole image whatever its shape: the image is contained, and a
 // blurred, zoomed copy of itself fills the leftover space instead of bars.
 // The parent sets the frame's size and must be `relative`.
-export function GalleryImage({
+export function FittedImage({
   src,
   alt,
   sizes,

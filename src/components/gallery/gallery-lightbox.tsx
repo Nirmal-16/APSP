@@ -1,26 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Camera,
-  CalendarDays,
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  FileText,
-  Link2,
-  MapPin,
-  Sparkles,
-  X,
-} from "lucide-react";
-import { formatGalleryDate, type GalleryAlbum } from "@/data/gallery";
-import { people, personInitials, personSlug } from "@/data/people";
+import { ArrowUpRight, Camera, CalendarDays, ChevronLeft, ChevronRight, FileText, MapPin, Sparkles, X } from "lucide-react";
+import type { GalleryAlbum } from "@/data/gallery";
+import { people, personHref, personInitials } from "@/data/people";
 import { publications, publicationUrl, typeLabel } from "@/data/publications";
 import { researchAreas } from "@/data/research-areas";
-import { GalleryImage } from "@/components/gallery/gallery-image";
+import { formatDate } from "@/lib/format-date";
+import { CopyLinkButton } from "@/components/media/copy-link-button";
+import { FittedImage } from "@/components/media/fitted-image";
 
 export type GalleryView = { album: GalleryAlbum; photo: number };
 
@@ -106,7 +96,7 @@ export function GalleryLightbox({ albums, view, dialogRef, onView, onClose }: Pr
               className="relative h-[45vh] overflow-hidden sm:h-[55vh] lg:h-auto lg:flex-1"
             >
               {/* The key swaps both layers together when stepping between photos. */}
-              <GalleryImage key={photo.src + view.photo} src={photo.src} alt={photo.alt} sizes="(min-width: 1024px) 70vw, 100vw" />
+              <FittedImage key={photo.src + view.photo} src={photo.src} alt={photo.alt} sizes="(min-width: 1024px) 70vw, 100vw" />
               {previous && (
                 <button type="button" onClick={() => onView(previous)} aria-label="Previous photo" className={`${arrowClass} left-3`}>
                   <ChevronLeft className="h-5 w-5" />
@@ -172,14 +162,15 @@ export function GalleryLightbox({ albums, view, dialogRef, onView, onClose }: Pr
 
             <dl className="mt-6 flex flex-col gap-4 border-t border-border pt-6 text-sm">
               {album.event && <Detail icon={Sparkles} label="Event" value={album.event} />}
-              <Detail icon={CalendarDays} label="Date" value={formatGalleryDate(album.date)} />
+              <Detail icon={CalendarDays} label="Date" value={formatDate(album.date)} />
               {album.venue && <Detail icon={MapPin} label="Venue" value={album.venue} />}
             </dl>
 
             <RelatedLinks album={album} />
 
             <div className="mt-auto flex items-center justify-between gap-4 pt-8">
-              <ShareButton />
+              {/* The page URL always points at the open photo. */}
+              <CopyLinkButton className={pillClass} />
               <p className="hidden text-xs text-muted lg:block">← → to browse · Esc to close</p>
             </div>
           </div>
@@ -231,9 +222,8 @@ function RelatedLinks({ album }: { album: GalleryAlbum }) {
           <ul className="mt-2 flex flex-col gap-2">
             {members.map((person) => (
               <li key={person.name}>
-                {/* The Group Head's full profile is on the About page. */}
                 <Link
-                  href={person.role === "Principal Investigator" ? "/about" : `/lab-members#${personSlug(person)}`}
+                  href={personHref(person)}
                   className="group flex items-center gap-2.5 text-sm font-medium text-foreground transition-colors hover:text-primary"
                 >
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-surface-hover text-xs text-muted">
@@ -273,27 +263,5 @@ function RelatedLinks({ album }: { album: GalleryAlbum }) {
         </div>
       )}
     </div>
-  );
-}
-
-// The page URL always points at the open photo, so sharing is a copy.
-function ShareButton() {
-  const [copied, setCopied] = useState(false);
-
-  async function copy() {
-    try {
-      await navigator.clipboard.writeText(location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard blocked (e.g. permissions) — the link is still in the address bar.
-    }
-  }
-
-  return (
-    <button type="button" onClick={copy} className={pillClass}>
-      {copied ? <Check className="h-3.5 w-3.5 text-accent" /> : <Link2 className="h-3.5 w-3.5" />}
-      {copied ? "Link copied" : "Copy link"}
-    </button>
   );
 }

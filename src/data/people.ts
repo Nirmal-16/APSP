@@ -52,6 +52,11 @@ export function personSlug(person: Person) {
     .replace(/^-|-$/g, "");
 }
 
+// Where a name links to: the Group Head's full profile is on the About page.
+export function personHref(person: Person) {
+  return person.role === "Principal Investigator" ? "/about" : `/lab-members#${personSlug(person)}`;
+}
+
 export function personInitials(name: string) {
   return name
     .replace(/^Dr\.?\s+/, "")
