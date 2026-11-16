@@ -9,10 +9,26 @@ const contactMedia: Media = {
   caption: "Electrospray propulsion — one of the micro-thruster technologies the group develops for small satellites.",
 };
 
-const address = "Department of Aerospace Engineering, IIT Madras, Chennai 600036, Tamil Nadu, India";
+// Kept in parts for search engines (job listings need a structured address).
+const postalAddress = {
+  street: "Department of Aerospace Engineering, IIT Madras",
+  city: "Chennai",
+  postalCode: "600036",
+  region: "Tamil Nadu",
+  country: "India",
+  countryCode: "IN",
+};
+const address = `${postalAddress.street}, ${postalAddress.city} ${postalAddress.postalCode}, ${postalAddress.region}, ${postalAddress.country}`;
 const foundedYear = 2019;
 
 export const siteSettings = {
+  // Search & link previews — set both at launch:
+  // siteUrl: the final address, e.g. "https://apsp.ae.iitm.ac.in". Left empty,
+  //   Vercel's production address is used.
+  // searchIndexing: true lets search engines list the site. Keep it false while
+  //   the site still has placeholder content.
+  siteUrl: "",
+  searchIndexing: false,
   labName: "Advanced Plasma & Space Propulsion Group",
   shortName: "APSP Group",
   tagline:
@@ -31,6 +47,7 @@ export const siteSettings = {
   email: "contact@apsplab.example.edu", // placeholder — replace with the lab's real email
   phone: "+91 00000 00000", // placeholder — replace with the lab's professional contact number
   address,
+  postalAddress,
   mapEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`,
   directionsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`,
   socials: {

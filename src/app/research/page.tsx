@@ -1,17 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Cpu, FlaskConical, Sigma, type LucideIcon } from "lucide-react";
-import { siteSettings } from "@/data/site-settings";
 import { researchApproach, researchAreas, researchIntro } from "@/data/research-areas";
+import { pageMetadata } from "@/lib/seo";
 import { IconMark } from "@/components/icons/icon-mark";
 import { Reveal } from "@/components/motion/reveal";
 import { ResearchAreaSection } from "@/components/research/research-area-section";
 import { ResearchNav } from "@/components/research/research-nav";
 
-export const metadata: Metadata = {
-  title: `Research — ${siteSettings.labName}`,
-  description: researchIntro.text,
-};
+export const metadata = pageMetadata({ title: "Research", description: researchIntro.text, path: "/research" });
 
 const approachIcons: LucideIcon[] = [FlaskConical, Cpu, Sigma];
 

@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
 import { gallery } from "@/data/gallery";
-import { siteSettings } from "@/data/site-settings";
+import { pageMetadata } from "@/lib/seo";
 import { GalleryBrowser } from "@/components/gallery/gallery-browser";
 import { BackToTop } from "@/components/motion/back-to-top";
 import { Reveal } from "@/components/motion/reveal";
 import { StatCounter } from "@/components/motion/stat-counter";
 
-export const metadata: Metadata = {
-  title: `Gallery — ${siteSettings.labName}`,
+export const metadata = pageMetadata({
+  title: "Gallery",
   description:
     "Photos from the group's experiments, facilities, conferences, events and awards, with the event, venue and date for each.",
-};
+  path: "/gallery",
+});
 
 const firstYear = Math.min(...gallery.map((album) => Number(album.date.slice(0, 4))));
 

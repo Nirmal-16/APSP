@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Award, Landmark } from "lucide-react";
@@ -14,6 +13,7 @@ import {
 } from "@/data/publications";
 import { researchAreas } from "@/data/research-areas";
 import { siteSettings } from "@/data/site-settings";
+import { pageMetadata } from "@/lib/seo";
 import { IconMark } from "@/components/icons/icon-mark";
 import { BackToTop } from "@/components/motion/back-to-top";
 import { Reveal } from "@/components/motion/reveal";
@@ -21,11 +21,12 @@ import { StatCounter } from "@/components/motion/stat-counter";
 import { PublicationBrowser } from "@/components/publications/publication-browser";
 import { typeStyle } from "@/components/publications/type-style";
 
-export const metadata: Metadata = {
-  title: `Publications — ${siteSettings.labName}`,
+export const metadata = pageMetadata({
+  title: "Publications",
   description:
     "Journal articles, conference papers and posters by the group, with DOI links and citations — plus patents and funded research projects.",
-};
+  path: "/publications",
+});
 
 const firstYear = Math.min(...publications.map((pub) => pub.year));
 
