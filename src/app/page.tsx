@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Compass, Target } from "lucide-react";
 import { siteSettings } from "@/data/site-settings";
@@ -10,6 +11,9 @@ import { ThrusterCanvas } from "@/components/three/thruster-model";
 import { SatelliteCanvas } from "@/components/three/satellite-model";
 import { ResearchIcon } from "@/components/icons/research-icon";
 import { NewsCard } from "@/components/news/news-card";
+
+// Title, description and link preview come from the root layout.
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 // Pick the hero model with `heroModel` in data/site-settings.ts.
 const heroModels = {

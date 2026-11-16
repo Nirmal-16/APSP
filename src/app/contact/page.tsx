@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -23,10 +23,7 @@ import { MediaSlot } from "@/components/media/media-slot";
 import { SocialLinks } from "@/components/icons/social-icons";
 import { CopyButton } from "@/components/contact/copy-button";
 
-export const metadata: Metadata = {
-  title: `Contact — ${siteSettings.labName}`,
-  description: siteSettings.contact.intro,
-};
+export const metadata = pageMetadata({ title: "Contact", description: siteSettings.contact.intro, path: "/contact" });
 
 const { email, phone, address, directionsUrl, mapEmbedUrl, contact } = siteSettings;
 const { lead } = contact;

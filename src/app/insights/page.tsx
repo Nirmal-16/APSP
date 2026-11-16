@@ -1,28 +1,63 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness, ChevronDown, Mail, Newspaper, PenLine, Quote } from "lucide-react";
 import { blogPosts } from "@/data/blog";
 import { applicantFaqs, applicationSteps, daysUntil, openings, testimonials } from "@/data/hirings";
 import { news } from "@/data/news";
 import { siteSettings } from "@/data/site-settings";
+import { pageMetadata, siteUrl } from "@/lib/seo";
 import { BlogCard } from "@/components/insights/blog-card";
 import { Byline } from "@/components/insights/byline";
 import { NewsBrowser } from "@/components/insights/news-browser";
 import { OpeningsList } from "@/components/insights/openings-list";
 import { BackToTop } from "@/components/motion/back-to-top";
 import { Reveal } from "@/components/motion/reveal";
+import { JsonLd } from "@/components/seo/json-ld";
 
-export const metadata: Metadata = {
-  title: `Insights — ${siteSettings.labName}`,
+export const metadata = pageMetadata({
+  title: "Insights",
   description:
     "News and announcements from the group, articles by our researchers, and open PhD, postdoc and internship positions.",
-};
+  path: "/insights",
+});
 
 const posts = [...blogPosts].sort((a, b) => b.date.localeCompare(a.date));
 
-// The page is built ahead of time; this is the date the openings count uses.
+// The page is built ahead of time; this is the date the openings count and
+// job listings use.
 const buildDate = new Date().toISOString().slice(0, 10);
-const openCount = openings.filter((o) => !o.deadline || daysUntil(o.deadline, buildDate) >= 0).length;
+const openPositions = openings.filter((o) => !o.deadline || daysUntil(o.deadline, buildDate) >= 0);
+
+// Job listings for search engines (e.g. Google's job search).
+const { postalAddress } = siteSettings;
+const jobPostings = openPositions.map((opening) => ({
+  "@context": "https://schema.org",
+  "@type": "JobPosting",
+  title: opening.title,
+  description: [
+    `<p>${opening.summary}</p>`,
+    opening.responsibilities && `<ul>${opening.responsibilities.map((r) => `<li>${r}</li>`).join("")}</ul>`,
+    opening.requirements && `<ul>${opening.requirements.map((r) => `<li>${r}</li>`).join("")}</ul>`,
+  ]
+    .filter(Boolean)
+    .join(""),
+  datePosted: opening.postedDate,
+  ...(opening.deadline && { validThrough: `${opening.deadline}T23:59:59+05:30` }),
+  employmentType: opening.type === "Intern" ? "INTERN" : "FULL_TIME",
+  hiringOrganization: { "@type": "Organization", name: siteSettings.labName, sameAs: siteUrl },
+  jobLocation: {
+    "@type": "Place",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: postalAddress.street,
+      addressLocality: postalAddress.city,
+      postalCode: postalAddress.postalCode,
+      addressRegion: postalAddress.region,
+      addressCountry: postalAddress.countryCode,
+    },
+  },
+  directApply: false,
+  url: `${siteUrl}/insights#hiring`,
+}));
 
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
@@ -46,7 +81,7 @@ const sections = [
     id: "hiring",
     icon: BriefcaseBusiness,
     title: "Join the group",
-    count: openCount > 0 ? plural(openCount, "open position") : "Open applications welcome",
+    count: openPositions.length > 0 ? plural(openPositions.length, "open position") : "Open applications welcome",
     text: "PhD, postdoc and internship opportunities.",
   },
 ];
@@ -238,6 +273,7 @@ export default function InsightsPage() {
         </section>
       </div>
 
+      {jobPostings.length > 0 && <JsonLd data={jobPostings} />}
       <BackToTop />
     </div>
   );

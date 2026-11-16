@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { collaboratorRoles, people, roleOrder, type Person } from "@/data/people";
-import { siteSettings } from "@/data/site-settings";
+import { pageMetadata } from "@/lib/seo";
 import { IconMark } from "@/components/icons/icon-mark";
 import { Reveal } from "@/components/motion/reveal";
 import { FilterablePeopleGrid, PeopleGrid } from "@/components/people/people-grid";
 
-export const metadata: Metadata = {
-  title: `Lab Members — ${siteSettings.labName}`,
+export const metadata = pageMetadata({
+  title: "Lab Members",
   description: "Meet the researchers and students of the group.",
-};
+  path: "/lab-members",
+});
 
 // Stable sort: by role order, then by position in data/people.ts.
 const sorted = [...people].sort((a, b) => roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role));

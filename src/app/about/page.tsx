@@ -1,14 +1,11 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { MapPin } from "lucide-react";
 import { siteSettings } from "@/data/site-settings";
 import { about } from "@/data/about";
 import { Reveal } from "@/components/motion/reveal";
 import { PiProfile } from "@/components/about/pi-profile";
 
-export const metadata: Metadata = {
-  title: `About — ${siteSettings.labName}`,
-  description: about.intro,
-};
+export const metadata = pageMetadata({ title: "About", description: about.intro, path: "/about" });
 
 export default function AboutPage() {
   return (

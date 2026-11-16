@@ -3,15 +3,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import { blogPosts, postSlug, readingTime } from "@/data/blog";
+import { people, personHref } from "@/data/people";
 import { researchAreas } from "@/data/research-areas";
 import { siteSettings } from "@/data/site-settings";
 import { formatDate } from "@/lib/format-date";
+import { pageMetadata, siteUrl } from "@/lib/seo";
 import { ArticleBody } from "@/components/insights/article-body";
 import { BlogCard } from "@/components/insights/blog-card";
 import { Byline } from "@/components/insights/byline";
 import { CopyLinkButton } from "@/components/media/copy-link-button";
 import { FittedImage } from "@/components/media/fitted-image";
 import { Reveal } from "@/components/motion/reveal";
+import { JsonLd } from "@/components/seo/json-ld";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -26,7 +29,13 @@ const findPost = (slug: string) => blogPosts.find((post) => postSlug(post) === s
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = findPost((await params).slug);
-  return post ? { title: `${post.title} — ${siteSettings.labName}`, description: post.excerpt } : {};
+  if (!post) return {};
+  return pageMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/insights/blog/${postSlug(post)}`,
+    article: { publishedTime: post.date, authors: [post.author], tags: post.tags },
+  });
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -34,6 +43,27 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const area = researchAreas.find((a) => a.slug === post.area);
+  const author = people.find((p) => p.name === post.author);
+  const url = `${siteUrl}/insights/blog/${postSlug(post)}`;
+
+  // Article details for search engines (author, date, image).
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    keywords: post.tags.join(", "),
+    url,
+    mainEntityOfPage: url,
+    ...(post.cover && { image: `${siteUrl}${post.cover.src}` }),
+    author: {
+      "@type": "Person",
+      name: post.author,
+      ...(author && { url: `${siteUrl}${personHref(author)}` }),
+    },
+    publisher: { "@type": "Organization", name: siteSettings.labName, url: siteUrl },
+  };
   const more = [...blogPosts]
     .filter((p) => p !== post)
     .sort((a, b) => b.date.localeCompare(a.date))
@@ -41,6 +71,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="site-container py-16 sm:py-24">
+      <JsonLd data={structuredData} />
       <article className="mx-auto max-w-3xl">
         <Reveal>
           <Link
