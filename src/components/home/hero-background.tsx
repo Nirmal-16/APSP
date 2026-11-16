@@ -9,13 +9,19 @@ const STAR_DENSITY = 3000; // px² of hero per star
 const SHOOTING_STARS = 4; // how many shooting stars can be in the sky at once
 const SHOOTING_EVERY = [2500, 7000]; // ms before each one reappears, min–max
 
-const STAR_RGB = "233,236,245"; // the dark theme's text colour
+// "#e9ecf5" → [233, 236, 245]
+function toRgb(hex: string): [number, number, number] {
+  const h = hex.replace("#", "");
+  const full = h.length === 3 ? [...h].map((c) => c + c).join("") : h;
+  const n = Number.parseInt(full, 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
 
 // Space backdrop for the homepage hero, in cyan and deep blue: twinkling,
-// drifting stars and a few shooting stars crossing at different times. The
-// hero is dark in both themes (`theme-dark`), so the sky is always night.
-// Animation pauses off-screen and in hidden tabs, and stays still for
-// visitors who prefer reduced motion.
+// drifting stars and a few shooting stars crossing at different times. It
+// follows the theme: on the light theme the stars are drawn in ink, fainter,
+// and the shooting stars in cyan. Animation pauses off-screen and in hidden
+// tabs, and stays still for visitors who prefer reduced motion.
 export function HeroBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -32,8 +38,19 @@ export function HeroBackground() {
     const now = performance.now();
     const shooting: (ShootingStar | null)[] = Array.from({ length: SHOOTING_STARS }, () => null);
     const nextShooting = shooting.map((_, i) => now + 800 + i * 1500 + Math.random() * 1000);
+    let ink = "255,255,255"; // star colour
+    let trail = "255,255,255"; // shooting-star colour
+    let light = false;
     let frame = 0;
     let onScreen = true;
+
+    const readColors = () => {
+      const css = getComputedStyle(document.documentElement);
+      const [r, g, b] = toRgb(css.getPropertyValue("--background").trim() || "#05070d");
+      light = (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.5;
+      ink = toRgb(css.getPropertyValue("--foreground").trim() || "#ffffff").join(",");
+      trail = light ? toRgb(css.getPropertyValue("--accent").trim() || "#0e7490").join(",") : ink;
+    };
 
     const resize = () => {
       const dpr = Math.min(devicePixelRatio, 2);
@@ -56,9 +73,11 @@ export function HeroBackground() {
     const draw = (time: number) => {
       ctx.clearRect(0, 0, width, height);
 
+      // Fainter on the light theme so the stars don't look like dust.
+      const fieldAlpha = light ? 0.45 : 1;
       for (const star of stars) {
         const twinkle = reduceMotion ? 1 : 0.55 + 0.45 * Math.sin(star.phase + time * star.speed);
-        ctx.fillStyle = `rgba(${STAR_RGB},${star.alpha * twinkle})`;
+        ctx.fillStyle = `rgba(${ink},${star.alpha * twinkle * fieldAlpha})`;
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
         ctx.fill();
@@ -69,7 +88,7 @@ export function HeroBackground() {
         if (!s) continue;
         for (let i = 0; i < 24; i++) {
           const fade = (1 - i / 24) * Math.min(1, s.life);
-          ctx.fillStyle = `rgba(${STAR_RGB},${0.8 * fade})`;
+          ctx.fillStyle = `rgba(${trail},${0.8 * fade})`;
           ctx.beginPath();
           ctx.arc(s.x - s.vx * i * 0.6, s.y - s.vy * i * 0.6, 1.4 * (1 - i / 30), 0, Math.PI * 2);
           ctx.fill();
@@ -117,6 +136,7 @@ export function HeroBackground() {
       frame = 0;
     };
 
+    readColors();
     resize();
     draw(0);
     start();
@@ -137,10 +157,22 @@ export function HeroBackground() {
     const onTabChange = () => (document.hidden ? stop() : start());
     document.addEventListener("visibilitychange", onTabChange);
 
+    // Recolour when the theme toggle or the OS theme changes.
+    const recolor = () => {
+      readColors();
+      draw(performance.now());
+    };
+    const themeObserver = new MutationObserver(recolor);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    const osTheme = matchMedia("(prefers-color-scheme: dark)");
+    osTheme.addEventListener("change", recolor);
+
     return () => {
       stop();
       resizeObserver.disconnect();
       visibility.disconnect();
+      themeObserver.disconnect();
+      osTheme.removeEventListener("change", recolor);
       document.removeEventListener("visibilitychange", onTabChange);
     };
   }, []);
@@ -153,9 +185,9 @@ export function HeroBackground() {
         style={{
           backgroundImage: [
             "radial-gradient(55% 55% at 15% 25%, color-mix(in oklab, #2563eb 18%, transparent), transparent 70%)",
-            "radial-gradient(40% 45% at 85% 45%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 70%)",
+            "radial-gradient(40% 45% at 85% 45%, color-mix(in oklab,  #2563eb 18%, transparent), transparent 70%)",
             "radial-gradient(30% 30% at 55% 10%, color-mix(in oklab, #1e3a8a 14%, transparent), transparent 70%)",
-            "radial-gradient(120% 55% at 50% 125%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 60%)",
+            "radial-gradient(120% 55% at 50% 125%, color-mix(in oklab,  #2563eb 18%, transparent), transparent 60%)",
           ].join(", "),
         }}
       />

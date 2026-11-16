@@ -43,9 +43,7 @@
   }
 }
 
-/* `.theme-dark` keeps one section dark in either theme (the homepage hero). */
-:root[data-theme="dark"],
-.theme-dark {
+:root[data-theme="dark"] {
   --background: #05070d;
   --surface: #0d1220;
   --surface-hover: #131a2e;
@@ -61,12 +59,6 @@
   --journal-fill: #06a3c2;
   --conference-fill: #9061f9;
   --poster-fill: #d97706;
-}
-
-.theme-dark {
-  color-scheme: dark;
-  background: var(--background);
-  color: var(--foreground);
 }
 
 @theme inline {

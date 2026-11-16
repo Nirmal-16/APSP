@@ -122,8 +122,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-1 flex-col">
-      {/* Hero, over a starfield — dark in both themes */}
-      <section className="theme-dark relative isolate overflow-hidden">
+      {/* Hero, over a starfield */}
+      <section className="relative isolate overflow-hidden">
         <HeroBackground />
         <div className="site-container grid grid-cols-1 items-center gap-12 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
           <Reveal className="flex flex-col items-center text-center lg:items-start lg:text-left">
