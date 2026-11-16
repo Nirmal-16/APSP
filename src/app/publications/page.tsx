@@ -18,7 +18,6 @@ import { IconMark } from "@/components/icons/icon-mark";
 import { BackToTop } from "@/components/motion/back-to-top";
 import { Reveal } from "@/components/motion/reveal";
 import { StatCounter } from "@/components/motion/stat-counter";
-import { OutputChart } from "@/components/publications/output-chart";
 import { PublicationBrowser } from "@/components/publications/publication-browser";
 import { typeStyle } from "@/components/publications/type-style";
 
@@ -100,9 +99,8 @@ export default function PublicationsPage() {
       </Reveal>
 
       <div className="mx-auto max-w-6xl">
-        {/* At a glance: totals beside the per-year chart from lg up. */}
-        <Reveal delay={0.1} className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-[2fr_3fr]">
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-border bg-border">
+        <Reveal delay={0.1} className="mx-auto mt-12 max-w-4xl">
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-4">
             {stats.map((stat) => (
               <div key={stat.label} className="flex flex-col justify-center bg-surface px-4 py-6 text-center">
                 <StatCounter value={stat.value} />
@@ -110,7 +108,6 @@ export default function PublicationsPage() {
               </div>
             ))}
           </div>
-          <OutputChart />
         </Reveal>
 
         <section aria-labelledby="selected" className="mt-20">
