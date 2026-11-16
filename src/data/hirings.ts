@@ -78,6 +78,13 @@ export function daysUntil(deadline: string, today: string) {
   return Math.round((Date.parse(deadline) - Date.parse(today)) / 86_400_000);
 }
 
+// Openings whose deadline hasn't passed by `today`, newest first.
+export function openOpenings(today: string) {
+  return openings
+    .filter((opening) => !opening.deadline || daysUntil(opening.deadline, today) >= 0)
+    .sort((a, b) => b.postedDate.localeCompare(a.postedDate));
+}
+
 // "How to apply" steps shown beside the openings.
 export const applicationSteps = [
   {

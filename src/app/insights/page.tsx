@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness, ChevronDown, Mail, Newspaper, PenLine, Quote } from "lucide-react";
 import { blogPosts } from "@/data/blog";
-import { applicantFaqs, applicationSteps, daysUntil, openings, testimonials } from "@/data/hirings";
+import { applicantFaqs, applicationSteps, openOpenings, testimonials } from "@/data/hirings";
 import { news } from "@/data/news";
 import { siteSettings } from "@/data/site-settings";
 import { pageMetadata, siteUrl } from "@/lib/seo";
@@ -25,7 +25,7 @@ const posts = [...blogPosts].sort((a, b) => b.date.localeCompare(a.date));
 // The page is built ahead of time; this is the date the openings count and
 // job listings use.
 const buildDate = new Date().toISOString().slice(0, 10);
-const openPositions = openings.filter((o) => !o.deadline || daysUntil(o.deadline, buildDate) >= 0);
+const openPositions = openOpenings(buildDate);
 
 // Job listings for search engines (e.g. Google's job search).
 const { postalAddress } = siteSettings;

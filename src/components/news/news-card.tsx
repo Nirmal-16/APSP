@@ -4,7 +4,7 @@ import type { NewsCategory, NewsItem } from "@/data/news";
 import { formatDate } from "@/lib/format-date";
 import { FittedImage } from "@/components/media/fitted-image";
 
-const categoryIcon: Record<NewsCategory, typeof Flag> = {
+export const categoryIcon: Record<NewsCategory, typeof Flag> = {
   Announcement: Megaphone,
   Award: Trophy,
   Grant: Landmark,

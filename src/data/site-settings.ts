@@ -1,6 +1,6 @@
 // Site-wide text, contact info and homepage content.
 
-import type { Media } from "@/data/media";
+import type { Media, ModelKey } from "@/data/media";
 
 // Visual on the Contact page — see data/media.ts for the options.
 const contactMedia: Media = {
@@ -19,7 +19,6 @@ const postalAddress = {
   countryCode: "IN",
 };
 const address = `${postalAddress.street}, ${postalAddress.city} ${postalAddress.postalCode}, ${postalAddress.region}, ${postalAddress.country}`;
-const foundedYear = 2019;
 
 export const siteSettings = {
   // Search & link previews — set both at launch:
@@ -58,7 +57,29 @@ export const siteSettings = {
     twitter: "#",
   },
   // 3D model in the homepage hero (see components/three/*).
-  heroModel: "plasma-orb" as "plasma-orb" | "thruster" | "satellite",
+  heroModel: "plasma-orb" as ModelKey,
+  // "Featured research" on the homepage: a video, image or 3D model beside a
+  // short story, with links to read more. Media options are in data/media.ts.
+  homeFeature: {
+    media: {
+      type: "video",
+      src: "/media/electrospray-satellite.mp4",
+      poster: "/media/electrospray-satellite.jpg",
+      caption: "A CubeSat carrying the group's multi-array electrospray thruster — visualisation by Punya Malaiya Jain.",
+    } as Media,
+    eyebrow: "Featured research",
+    title: "Electrospray thrusters for CubeSats",
+    text: "Small satellites need tiny, precise thrust to manoeuvre, hold formation and leave orbit at the end of their mission. The group develops multi-jet electrospray and field-emission thrusters that deliver exactly that, with no tanks or moving parts.",
+    points: [
+      "Annular slit emitter that fires many jets at once",
+      "Micronewton thrust, finely throttled by voltage",
+      "Tested in the lab's vacuum facility",
+    ],
+    links: [
+      { href: "/research#space-propulsion", label: "Space propulsion research" },
+      { href: "/insights/blog/how-do-you-steer-a-satellite-the-size-of-a-shoebox", label: "Read the story" },
+    ],
+  },
   contact: {
     headline: "Get in Touch",
     intro:
@@ -119,18 +140,15 @@ export const siteSettings = {
       },
     ],
   },
-  stats: [
-    { label: "Years Active", value: `${new Date().getFullYear() - foundedYear}+` },
-    { label: "Publications", value: "20+" },
-    { label: "Research Areas", value: "4" },
-    { label: "Team Members", value: "10+" },
-  ],
-  // placeholders — replace with the lab's real collaborators
+  // Shown on the homepage. Optional `logo`: put the file in /public/collaborators,
+  // e.g. "/collaborators/isro.png" (any size; a transparent PNG or SVG looks
+  // best). Without one, the name is shown. Optional `url` links to their site.
+  // placeholders — replace with the lab's real collaborators and logos
   collaborators: [
-    { name: "National Space Research Institute" },
-    { name: "Indian Institute of Aerospace Sciences" },
-    { name: "Orbital Dynamics Pvt. Ltd." },
-    { name: "Bureau of Sustainable Fuels" },
-    { name: "Plasma Systems International" },
-  ],
+    { name: "National Space Research Institute", logo: "/collaborators/national-space-research-institute.svg" },
+    { name: "Indian Institute of Aerospace Sciences", logo: "/collaborators/indian-institute-of-aerospace-sciences.svg" },
+    { name: "Orbital Dynamics Pvt. Ltd.", logo: "/collaborators/orbital-dynamics.svg" },
+    { name: "Bureau of Sustainable Fuels", logo: "/collaborators/bureau-of-sustainable-fuels.svg" },
+    { name: "Plasma Systems International", logo: "/collaborators/plasma-systems-international.svg" },
+  ] as { name: string; logo?: string; url?: string }[],
 };

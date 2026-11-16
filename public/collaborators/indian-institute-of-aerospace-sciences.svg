@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" role="img" aria-label="Indian Institute of Aerospace Sciences">
+  <path d="M40 12 L64 22 V42 C64 56 53 64 40 69 C27 64 16 56 16 42 V22 Z" fill="#b45309"/>
+  <path d="M26 44 L40 28 L54 44 L46 44 L40 37 L34 44 Z" fill="#fff"/>
+  <text x="76" y="42" font-family="Georgia, 'Times New Roman', serif" font-size="27" font-weight="700" fill="#b45309" letter-spacing="3">IIAS</text>
+  <text x="77" y="58" font-family="Arial, Helvetica, sans-serif" font-size="8.5" fill="#64748b" letter-spacing="0.4">INSTITUTE OF AEROSPACE SCIENCES</text>
+</svg>
