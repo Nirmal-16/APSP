@@ -39,7 +39,7 @@ export type ResearchIconKey = "leaf" | "atom" | "rocket" | "sparkles";
 export type ResearchVisualKey = "combustion" | "plasma" | "propulsion" | "microscale";
 
 // One focus area; opens in a popup on the Research page.
-export interface ResearchTopic {
+interface ResearchTopic {
   name: string;
   description: string;
   details?: string[]; // extra paragraphs shown in the popup
