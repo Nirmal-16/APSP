@@ -9,7 +9,7 @@ import { ThemeToggle } from "@/components/theme/theme-toggle";
 // Contact is a separate button, so it isn't in this list.
 const links = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/about", label: "Principal Investigator" },
   { href: "/lab-members", label: "Lab Members" },
   { href: "/research", label: "Research" },
   { href: "/publications", label: "Publications" },
@@ -32,7 +32,7 @@ export function Navbar() {
           href="/"
           onClick={() => setOpen(false)}
           aria-current={pathname === "/" ? "page" : undefined}
-          className="flex items-center gap-2 font-semibold tracking-tight text-foreground"
+          className="flex shrink-0 items-center gap-2 whitespace-nowrap font-semibold tracking-tight text-foreground"
         >
           <span className="inline-block h-2.5 w-2.5 rounded-full bg-accent" />
           {siteSettings.shortName}
@@ -47,7 +47,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   aria-current={active ? "page" : undefined}
-                  className={`whitespace-nowrap rounded-full px-3 py-1.5 transition-colors hover:text-foreground ${
+                  className={`whitespace-nowrap rounded-full px-2.5 py-1.5 transition-colors xl:px-3 hover:text-foreground ${
                     active ? "text-foreground" : ""
                   }`}
                 >

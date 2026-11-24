@@ -5,7 +5,7 @@ import { about } from "@/data/about";
 import { Reveal } from "@/components/motion/reveal";
 import { PiProfile } from "@/components/about/pi-profile";
 
-export const metadata = pageMetadata({ title: "About", description: about.intro, path: "/about" });
+export const metadata = pageMetadata({ title: "Principal Investigator", description: about.intro, path: "/about" });
 
 export default function AboutPage() {
   return (
@@ -14,7 +14,7 @@ export default function AboutPage() {
         {/* Header */}
         {/* Left-aligned on phones, where centred multi-line text looks ragged. */}
         <Reveal className="mx-auto max-w-4xl sm:text-center">
-          <p className="text-sm font-medium text-accent">About</p>
+          <p className="text-sm font-medium text-accent">Principal Investigator</p>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
             {about.headline}
           </h1>
