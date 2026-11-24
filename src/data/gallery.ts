@@ -24,7 +24,7 @@ export const galleryCategories = [
 
 export type GalleryCategory = (typeof galleryCategories)[number];
 
-export interface GalleryPhoto {
+interface GalleryPhoto {
   src: string;
   alt: string;
   caption?: string; // what this particular photo shows

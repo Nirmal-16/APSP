@@ -20,7 +20,7 @@ export interface Opening {
   applyEmail?: string;
 }
 
-export const openings: Opening[] = [
+const openings: Opening[] = [
   {
     title: "PhD Position — Electric Propulsion",
     type: "PhD Position",

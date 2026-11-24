@@ -18,7 +18,7 @@ import { albumSlug, gallery } from "@/data/gallery";
 import { openOpenings } from "@/data/hirings";
 import { news } from "@/data/news";
 import { collaboratorRoles, people } from "@/data/people";
-import { fundedProjects, patents, publications, publicationsInArea } from "@/data/publications";
+import { fundedProjects, patents, publications } from "@/data/publications";
 import { researchAreas } from "@/data/research-areas";
 import { siteSettings } from "@/data/site-settings";
 import { formatDate } from "@/lib/format-date";
@@ -53,7 +53,7 @@ const pillars = [
 // Each research card shows the first photo among its focus topics.
 const areaCards = researchAreas.map((area) => {
   const cover = area.topics.map((t) => t.media).find((m) => m?.type === "image");
-  return { area, cover: cover?.type === "image" ? cover : undefined, papers: publicationsInArea(area.slug).length };
+  return { area, cover: cover?.type === "image" ? cover : undefined };
 });
 
 // Granted patents, then the PI's national fellowships (from the About page).
@@ -251,7 +251,7 @@ export default function Home() {
             linkLabel="View all research"
           />
           <ul className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {areaCards.map(({ area, cover, papers }, i) => (
+            {areaCards.map(({ area, cover }, i) => (
               <li key={area.slug}>
                 <Reveal delay={i * 0.08} className="h-full">
                   <Link
@@ -279,7 +279,7 @@ export default function Home() {
                       <p className="mt-1 text-xs font-medium text-accent">{area.subtitle}</p>
                       <p className="mt-3 line-clamp-4 flex-1 text-sm leading-relaxed text-muted">{area.summary}</p>
                       <p className="mt-5 flex items-center justify-between gap-2 border-t border-border pt-4 text-xs font-medium text-muted">
-                        <span>{papers > 0 ? `${papers} ${papers === 1 ? "paper" : "papers"}` : "Learn more"}</span>
+                        <span>Learn more</span>
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
                       </p>
                     </div>
