@@ -41,10 +41,10 @@ export function PiProfile() {
       <Reveal>
         <article className="overflow-hidden rounded-3xl border border-border bg-surface">
           <div className="grid gap-8 p-6 sm:p-8 md:grid-cols-[auto_1fr] md:gap-10 lg:p-10">
-            <div className="mx-auto h-36 w-36 rounded-full border border-border p-1 sm:h-44 sm:w-44 md:mx-0">
+            <div className="mx-auto h-40 w-40 rounded-full border border-border p-1 sm:h-52 sm:w-52 md:mx-0 lg:h-56 lg:w-56">
               <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-background">
                 {pi.photo ? (
-                  <Image src={pi.photo} alt={pi.name} fill sizes="176px" className="object-cover" />
+                  <Image src={pi.photo} alt={pi.name} fill sizes="224px" className="object-cover" />
                 ) : (
                   <span className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">{personInitials(pi.name)}</span>
                 )}

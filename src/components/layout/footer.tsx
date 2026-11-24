@@ -4,7 +4,7 @@ import { siteSettings } from "@/data/site-settings";
 import { SocialLinks } from "@/components/icons/social-icons";
 
 const links = [
-  { href: "/about", label: "About" },
+  { href: "/about", label: "Principal Investigator" },
   { href: "/lab-members", label: "Lab Members" },
   { href: "/research", label: "Research" },
   { href: "/publications", label: "Publications" },

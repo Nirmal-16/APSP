@@ -8,7 +8,7 @@ export const contentType = "image/png";
 export default function Image() {
   const { lead } = siteSettings.contact;
   return ogImage({
-    eyebrow: "About",
+    eyebrow: "Principal Investigator",
     title: "About the group",
     subtitle: `Led by ${lead.name}, ${lead.role}`,
     photo: lead.photo || undefined,
