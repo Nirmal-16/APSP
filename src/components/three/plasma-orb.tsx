@@ -1,23 +1,54 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
-import { Float, OrbitControls, Sparkles } from "@react-three/drei";
+import { Suspense, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Float, OrbitControls, Sparkles, useTexture } from "@react-three/drei";
+import { SRGBColorSpace, type Mesh, type Texture } from "three";
 import { useMounted } from "@/hooks/use-mounted";
+
+const EARTH_RADIUS = 0.95;
+const AXIAL_TILT = (23.4 * Math.PI) / 180;
+
+// Earth from NASA Blue Marble imagery, spinning on a tilted axis. The day map
+// is also used as the emissive map so the planet reads in true colour even
+// under the scene's cyan and indigo lights.
+function Earth() {
+  const spin = useRef<Mesh>(null);
+  const [day, bump] = useTexture(["/textures/earth-day.jpg", "/textures/earth-bump.png"], (textures) => {
+    (textures as Texture[])[0].colorSpace = SRGBColorSpace;
+  });
+
+  useFrame((_, delta) => {
+    if (spin.current) spin.current.rotation.y += delta * 0.12;
+  });
+
+  return (
+    <group rotation={[0, 0, AXIAL_TILT]}>
+      <mesh ref={spin}>
+        <sphereGeometry args={[EARTH_RADIUS, 64, 64]} />
+        <meshStandardMaterial
+          map={day}
+          bumpMap={bump}
+          bumpScale={0.6}
+          emissiveMap={day}
+          emissive="#ffffff"
+          emissiveIntensity={0.55}
+          roughness={0.85}
+          metalness={0}
+        />
+      </mesh>
+    </group>
+  );
+}
 
 function PlasmaCore() {
   return (
     <Float speed={1.4} rotationIntensity={0.9} floatIntensity={1.2}>
       <group>
-        {/* Glowing plasma core */}
-        <mesh>
-          <sphereGeometry args={[0.7, 32, 32]} />
-          <meshStandardMaterial
-            color="#22d3ee"
-            emissive="#22d3ee"
-            emissiveIntensity={1.6}
-            toneMapped={false}
-          />
-        </mesh>
+        {/* Earth at the centre; the net shows straight away while it loads. */}
+        <Suspense fallback={null}>
+          <Earth />
+        </Suspense>
         {/* Magnetic containment field (wireframe) */}
         <mesh rotation={[0.4, 0, 0]}>
           <icosahedronGeometry args={[1.5, 1]} />
