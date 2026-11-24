@@ -279,10 +279,7 @@ export default function Home() {
                       <p className="mt-1 text-xs font-medium text-accent">{area.subtitle}</p>
                       <p className="mt-3 line-clamp-4 flex-1 text-sm leading-relaxed text-muted">{area.summary}</p>
                       <p className="mt-5 flex items-center justify-between gap-2 border-t border-border pt-4 text-xs font-medium text-muted">
-                        <span>
-                          {area.topics.length} focus areas
-                          {papers > 0 && ` · ${papers} ${papers === 1 ? "paper" : "papers"}`}
-                        </span>
+                        <span>{papers > 0 ? `${papers} ${papers === 1 ? "paper" : "papers"}` : "Learn more"}</span>
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
                       </p>
                     </div>
